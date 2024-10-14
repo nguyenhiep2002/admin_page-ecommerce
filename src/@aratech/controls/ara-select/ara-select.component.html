@@ -1,0 +1,81 @@
+<!-- <div class="w-full" *ngIf="group" [formGroup]="group">
+    <mat-form-field class="w-full" appearance="outline">
+        <mat-label>{{label | translate}}</mat-label>
+        <mat-select [(ngModel)]="ngModel" (ngModelChange)="onModelChange($event)" [required]="required" disabled="{{readOnly}}" [multiple]="multiple"
+            [tabIndex]="tabIndex" formControlName="{{controlName}}">
+            <mat-option *ngFor="let item of items" [value]="item[valueField]" class="opt-item">{{item[displayField]}}</mat-option>
+            <mat-option *ngIf="showAddButton && service && service.getCategoryConfig" [value]="btnNewModel" class="opt-add">
+                <button fxFlex mat-button stop-propagation (click)="showAddItemDialog()"> 
+                    <mat-icon>add</mat-icon>
+                    {{btnNewModel[displayField]}}
+                </button>
+            </mat-option>
+        </mat-select>
+        <button stop-propagation *ngIf="ngModel && !readOnly" class="btn-close" matSuffix mat-button mat-icon-button (click)="clear()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="errors.required">
+            <span>{{ ('Category.Msg.Required' | translate) | stringFormat:label}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>
+
+<div class="w-full" *ngIf="!group">
+    <mat-form-field class="w-full" appearance="outline">
+        <mat-label>{{label | translate}}</mat-label>
+        <mat-select [(ngModel)]="ngModel" (ngModelChange)="onModelChange($event)" [required]="required" disabled="{{readOnly}}" [multiple]="multiple"
+            [tabIndex]="tabIndex">
+            <mat-option *ngFor="let item of items" [value]="item[valueField]" class="opt-item">{{item[displayField]}}</mat-option>
+            <mat-option *ngIf="showAddButton && service && service.getCategoryConfig" [value]="btnNewModel" class="opt-add" >
+                <button fxFlex mat-button stop-propagation (click)="showAddItemDialog()"> 
+                    <mat-icon>add</mat-icon>
+                    {{btnNewModel[displayField]}}
+                </button>
+            </mat-option>
+        </mat-select>
+        <button stop-propagation *ngIf="!hideClearButton && ngModel && !readOnly" class="btn-close" matSuffix mat-button mat-icon-button (click)="clear()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div> -->
+
+<div class="w-full" *ngIf="group" [formGroup]="group" fxLayout="row" fxLayoutAlign="start center">
+    <mat-form-field class="form-control w-full">
+        <mat-label>{{label | translate}}</mat-label>
+        <mat-select [(ngModel)]="ngModel" (ngModelChange)="onModelChange($event)" [required]="required" disabled="{{readOnly}}" [multiple]="multiple"
+            [tabIndex]="tabIndex" formControlName="{{controlName}}">
+            <mat-option *ngFor="let item of items" [value]="item[valueField]" class="opt-item">{{item[displayField]}}</mat-option>
+            <mat-option *ngIf="showAddButton && service && service.getCategoryConfig" [value]="btnNewModel" class="opt-add">
+                <button fxFlex mat-button stop-propagation (click)="showAddItemDialog()"> 
+                    <mat-icon>add</mat-icon>
+                    {{btnNewModel[displayField]}}
+                </button>
+            </mat-option>
+        </mat-select>
+        <button stop-propagation *ngIf="!hideClearButton && ngModel && !readOnly" class="btn-close" matSuffix mat-icon-button (click)="clear()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="errors.required">
+            <span>{{ ('Category.Msg.Required' | translate) | stringFormat:label}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>
+
+<div class="w-full" *ngIf="!group" fxLayout="row" fxLayoutAlign="start center">
+    <mat-form-field class="form-control w-full">
+        <mat-label>{{label | translate}}</mat-label>
+        <mat-select [(ngModel)]="ngModel" (ngModelChange)="onModelChange($event)" [required]="required" disabled="{{readOnly}}" [multiple]="multiple"
+            [tabIndex]="tabIndex">
+            <mat-option *ngFor="let item of items" [value]="item[valueField]" class="opt-item">{{item[displayField]}}</mat-option>
+            <mat-option *ngIf="showAddButton && service && service.getCategoryConfig" [value]="btnNewModel" class="opt-add" >
+                <button fxFlex mat-button stop-propagation (click)="showAddItemDialog()"> 
+                    <mat-icon>add</mat-icon>
+                    {{btnNewModel[displayField]}}
+                </button>
+            </mat-option>
+        </mat-select>
+        <button stop-propagation *ngIf="!hideClearButton && ngModel && !readOnly" class="btn-close" matSuffix mat-icon-button (click)="clear()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>

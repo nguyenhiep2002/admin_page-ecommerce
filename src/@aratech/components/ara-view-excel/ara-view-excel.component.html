@@ -1,0 +1,35 @@
+<div class="dialog-content-wrapper h-100-p" fxLayout="column">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{ options.filename }}</span>
+            <button mat-button class="mat-icon-button" tabindex="-1" (click)="dialogRef.close()"
+                aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-8 m-0 content" fxLayoutAlign="center start" fusePerfectScrollbar>
+        <div id="excelViewerHost" class="excel-viewer-box"></div>
+    </div>
+    <div *ngIf="workbook" fxLayout="row" class="w-full px-8" fxLayoutAlign="start center">
+        <mat-button-toggle-group #group="matButtonToggleGroup" value="0"  fxLayout="row wrap">
+            <mat-button-toggle *ngFor="let sheet of workbook.sheets; let i = index"
+                value="{{i}}" role="presentation" (click)="tabClicked($event, i)">
+                {{sheet.name}}
+            </mat-button-toggle>
+        </mat-button-toggle-group> 
+    </div>
+    <!-- <ul *ngIf="workbook" class="nav nav-tabs" style="margin-top:40px">
+        <li role="presentation" *ngFor="let sheet of workbook.sheets; let i = index"
+            [ngClass]="{ active: i == sheetIndex }">
+            <a href="#" (click)="tabClicked($event, i)">{{sheet.name}}</a>
+        </li>
+    </ul> -->
+    <div mat-dialog-actions class="m-0 p-8" fxLayout="row" fxLayoutAlign="center">
+        <button mat-button (click)="download()"  class="mat-raised-button mat-accent"
+            color="accent">{{'Common.Download' | translate}}</button>
+        <button mat-button (click)="cancel()" class="mat-raised-button mat-warn"
+            color="warn">{{'Common.Close' | translate}}</button>
+    </div>
+</div>

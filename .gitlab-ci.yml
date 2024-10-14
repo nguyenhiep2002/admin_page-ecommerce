@@ -1,0 +1,25 @@
+stages:
+  - build
+  - deploy
+
+deploy-test:
+  #image: node:16.17.1
+  image: node:16.20.2
+  stage: deploy
+  only:
+    - dev
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  script:
+    - echo "Build by Aratech builder"
+    - echo "NPM - INSTALLING"
+    - npm install
+    # - npm install --legacy-peer-deps
+    - echo "Build Application"
+    - npm run build:test
+
+    - echo "Copy files to server"
+    - scp -P 12322 -o StrictHostKeyChecking=no -r ./dist/* $SSH_USER@$SSH_SERVER_IP:$PATH_TO_PROJECT
+  when: manual

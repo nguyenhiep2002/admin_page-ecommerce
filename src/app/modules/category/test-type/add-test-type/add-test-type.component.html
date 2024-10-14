@@ -1,0 +1,78 @@
+<div class='dialog-content-wrapper'>
+    <!-- Header -->
+    <div class='flex flex-row items-center px-6 h-20 min-h-20 text-white bg-primary'>
+        <mat-icon
+            class='icon-size-7 text-current'
+            [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+        <div class='ml-3 text-2xl font-semibold tracking-tight'>{{ data.title | translate }}</div>
+        <button
+            class='ml-auto'
+            mat-icon-button
+            (click)='dialogRef.close()'>
+            <mat-icon
+                class='text-current'
+                [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+    </div>
+
+    <div
+        mat-dialog-content
+        class="md:p-8 sm:p-8 xs:p-4 flex justify-between w-full xs:overflow-auto md:overflow-auto"
+        fusePerfectScrollbar
+    >
+        <div class='event-form w-full'>
+            <ara-text
+                tabindex="1"
+                ngDefaultControl
+                required
+                controlName='code'
+                [group]='form'
+                [(ngModel)]='item.code'
+                label="{{ 'TestType.Code' | translate }}"
+            >
+            </ara-text>
+
+            <ara-text
+                tabindex="2"
+                ngDefaultControl
+                required
+                controlName='name'
+                [group]='form'
+                [(ngModel)]='item.name'
+                label="{{ 'TestType.Name' | translate }}"
+            >
+            </ara-text>
+
+            <ara-textarea
+                tabindex="3"
+                ngDefaultControl
+                controlName='desc'
+                [group]='form'
+                [(ngModel)]='item.desc'
+                label="{{ 'Common.Description' | translate }}"
+            >
+            </ara-textarea>
+        </div>
+    </div>
+
+    <div class='my-10 border-t'></div>
+    <!-- Actions -->
+    <div class='pl-5 pr-5 flex items-center justify-end'>
+        <button
+            (click)='dialogRef.close()'
+            mat-stroked-button
+            type='button'>
+            {{ 'Common.Cancel' | translate }}
+        </button>
+        <button
+            tabindex="4"
+            (click)='onSave()'
+            [disabled]="!form.valid"
+            class='ml-4'
+            mat-flat-button
+            type='button'
+            [color]="'primary'">
+            {{ 'Common.Save' | translate }}
+        </button>
+    </div>
+</div>

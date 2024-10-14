@@ -1,0 +1,22 @@
+<div class="w-full px-[10px] py-[5px]" *ngIf="!viewOnly">
+  <span class="pr-12 font-bold">{{ label | translate }}</span>
+  <div class="flex justify-between">
+    <div>
+      <input type="text" class="font-medium" matInput [(ngModel)]="filename" [required]="required" readonly />
+      <button *ngIf="filename" matSuffix mat-icon-button color="warn" (click)="clear()">
+        <mat-icon [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+      </button>
+    </div>
+    <button mat-icon-button color="accent" (click)="chooseFile()" [matTooltip]="'Common.AddFile' | translate">
+      <mat-icon svgIcon="attach_file"></mat-icon>
+    </button>
+  </div>
+</div>
+<div class="w-full h-100-p" *ngIf="viewOnly">
+  <fa-icon *ngIf="extension == 'doc' || extension == 'docx'" [icon]="fileWordIcon" class="word-icon"></fa-icon>
+  <fa-icon *ngIf="extension == 'xls' || extension == 'xlsx'" [icon]="fileExcelIcon" class="excel-icon"></fa-icon>
+  <fa-icon *ngIf="extension == 'pdf'" [icon]="filePdfIcon" class="pdf-icon"></fa-icon>
+  <fa-icon *ngIf="extension == 'file'" [icon]="fileIcon" class="file-icon"></fa-icon>
+  <a class="ml-4" href="javascript:void(0)" (click)="viewFile(value)">{{ filename }}</a>
+</div>
+<input #fileInput type="file" [accept]="accept" style="display: none" (change)="fileChange($event)" />

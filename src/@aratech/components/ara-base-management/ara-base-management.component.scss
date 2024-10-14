@@ -1,0 +1,27 @@
+//@import "src/@fuse/scss/fuse";
+:host {
+    .header {
+        padding: 15px;
+    }
+    .content {
+        padding: 0 15px 15px 15px;
+    }
+    .btn-show-advanced-search {
+        padding: 0 8px;
+        min-width: 24px;
+    }
+    ara-year {
+         ::ng-deep {
+            .label {
+                width: 115px;
+            }
+            .mat-form-field {
+                width: calc(100% - 115px);
+            }
+            .mat-form-field-wrapper,
+            .label {
+                padding-bottom: 0 !important;
+            }
+        }
+    }
+}

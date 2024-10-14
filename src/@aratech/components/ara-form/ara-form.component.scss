@@ -1,0 +1,14 @@
+:host {
+    .dialog-content-wrapper .mat-mdc-dialog-title {
+        height: 50px !important;
+    }
+
+    .mat-mdc-dialog-content {
+        max-height: 80vh;
+        // padding: 0 !important;
+    }
+
+    .btn-header-close {
+        min-width: 0 !important;
+    }
+}

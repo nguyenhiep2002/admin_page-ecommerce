@@ -1,0 +1,24 @@
+<div class="dialog-content-wrapper h-100-p" fxLayout="column">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{ options.filename }}</span>
+            <button mat-button class="mat-icon-button" tabindex="-1" (click)="dialogRef.close()"
+                aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-0 m-0 content">
+        <!-- <pdf-viewer [src]="dataSource" style="display: block; width:100%; height:100%;" [render-text]="true" ></pdf-viewer> -->
+        <!-- <embed  [attr.src]="safeUrl" style="width:100%; height:100%;" type="application/pdf" > -->
+        <!-- <object [attr.data]="safeUrl" style="width:100%; height:100%;" ></object> -->
+        <iframe [attr.src]="dataSource" style="width:100%; height:99%;"></iframe>
+    </div>
+    <div mat-dialog-actions class="m-0 p-8" fxLayout="row" fxLayoutAlign="center">
+        <button mat-button (click)="download()"  class="mat-raised-button mat-accent"
+            color="accent">{{'Common.Download' | translate}}</button>
+        <button mat-button (click)="cancel()" class="mat-raised-button mat-warn"
+            color="warn">{{'Common.Close' | translate}}</button>
+    </div>
+</div>

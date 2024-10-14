@@ -1,0 +1,83 @@
+<!-- <form class="w-full" [formGroup]="myGroup">
+    <mat-form-field class="w-full" appearance="outline">
+        <mat-label>{{label | translate}}</mat-label>
+        <input matInput [tabIndex]="tabIndex" (focus)="onFocus()"
+            trim="blur" [required]="required" (ngModelChange)="onModelChange($event)" formControlName="myInput"
+            [matAutocomplete]="auto" (blur)="onBlur()" readonly="{{readOnly}}" />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="display">
+            <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
+            <ng-container *ngIf="!isLoading">
+                <mat-option *ngFor="let item of filterItems" [value]="item" class="opt-item">{{getText(item)}}</mat-option>
+                <mat-option *ngIf="showAddButton && service && service.getCategoryConfig" [value]="btnNewModel" class="opt-add">
+                    <button fxFlex mat-button stop-propagation (click)="showAddItemDialog()">
+                        <mat-icon>add</mat-icon>
+                        {{getText(btnNewModel)}}
+                    </button>
+                </mat-option>
+            </ng-container>
+        </mat-autocomplete>
+        <button mat-button stop-propagation *ngIf="ngModel && !readOnly" matSuffix mat-icon-button (click)="clear()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="errors.required">
+            <span>{{ ('Category.Msg.Required' | translate) | stringFormat:label}}</span>
+        </mat-error>
+    </mat-form-field>
+</form> -->
+
+<form class='w-full' [formGroup]='myGroup' fxLayout='row' fxLayoutAlign='start center'>
+    <mat-form-field
+        [ngClass]="{
+          'fuse-mat-dense fuse-mat-rounded': borderRadius || isSearchControl,
+          'form-control': true,
+          'no-hint': isRemoveHint,
+          'high':highlight && !inputAutoComplete.value
+        }"
+        class='w-full'
+        [appearance]='appearance'
+    >
+        <mat-label *ngIf='label' >{{ label | translate }}</mat-label>
+        <mat-icon *ngIf='icon' matPrefix class='icon-size-5' [svgIcon]="icon"></mat-icon>
+        <input
+            [ngClass]="{'my-input' : highlight}"
+            matInput
+            [tabIndex]='tabIndex'
+            (focus)='onFocus(trigger, auto)'
+            #trigger='matAutocompleteTrigger'
+            #inputAutoComplete
+            trim='blur'
+            [required]='required'
+            (ngModelChange)='onModelChange($event)'
+            formControlName='myInput'
+            [matAutocomplete]='auto'
+            (blur)='onBlur()'
+            readonly='{{ readOnly }}'
+            placeholder='{{ placeholder }}'
+        />
+        <mat-autocomplete #auto='matAutocomplete' [displayWith]='display' class="high">
+            <mat-option *ngIf='isLoading' class='is-loading'>
+                <mat-spinner diameter='50'></mat-spinner>
+            </mat-option>
+            <ng-container *ngIf='!isLoading'>
+                <mat-option *ngFor='let item of filterItems' [value]='item'
+                            class='opt-item'>{{ getText(item) }}
+                            <p class="muted-text" *ngIf="isShowDisplayField2">{{ item[displayField2] }}</p>
+                        </mat-option>
+                <mat-option *ngIf='showAddButton && service && service.getCategoryConfig' [value]='btnNewModel'
+                            class='opt-add'>
+                    <button fxFlex mat-button stop-propagation (click)='showAddItemDialog()'>
+                        <mat-icon>add</mat-icon>
+                        {{ getText(btnNewModel) }}
+                    </button>
+                </mat-option>
+            </ng-container>
+        </mat-autocomplete>
+        <button class='btn-close' stop-propagation *ngIf='inputAutoComplete.value && !readOnly' matSuffix mat-icon-button
+                (click)='clear()'>
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf='errors.required'>
+            <span>{{ 'Category.Msg.Required' | translate | stringFormat : label }}</span>
+        </mat-error>
+    </mat-form-field>
+</form>

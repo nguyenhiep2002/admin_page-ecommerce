@@ -1,0 +1,112 @@
+<div class='flex justify-center items-center h-full'>
+    <div class='w-fit p-7 rounded-lg drop-shadow-md'>
+        <!-- Logo -->
+<!--        <div class='flex items-center'>-->
+<!--            <div class='w-12 h-12 bg-contain bg-center bg-no-repeat'-->
+<!--                 style="background-image: url('assets/images/logo/ara-logo-bg-256.png')"-->
+<!--            >-->
+<!--            </div>-->
+<!--            &nbsp;-->
+<!--            <div class='w-12 h-12 bg-contain bg-center bg-no-repeat'-->
+<!--                 style="background-image: url('assets/images/logo/logo-deepcare.png')"-->
+<!--            >-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <!-- Title -->
+        <div class='text-4xl font-extrabold tracking-tight leading-tight mb-8 uppercase'>Đăng nhập</div>
+
+        <!-- Select Option Login -->
+<!--        <mat-form-field class='mt-8 w-full' [(ngModel)]='optionLogin'>-->
+<!--            <mat-label>Loại tài khoản</mat-label>-->
+<!--            <mat-select [(value)]='this.grant_type.DeepCare'>-->
+<!--                <mat-option value='{{this.grant_type.DeepCare}}'>Tài khoản DeepCare</mat-option>-->
+<!--                <mat-option value='{{this.grant_type.Password}}'>Tài khoản Aratech</mat-option>-->
+<!--            </mat-select>-->
+<!--        </mat-form-field>-->
+
+        <!-- Sign Up form -->
+        <div [formGroup]='loginForm' #signUpNgForm='ngForm'>
+            <!-- Name field -->
+            <mat-form-field class='w-full'>
+                <mat-label>Tài khoản</mat-label>
+                <input id='username' matInput [formControlName]="'username'" />
+                <mat-error class='text-red-500' *ngIf="loginForm.get('username').hasError('required')">
+                    Tài khoản là bắt buộc
+                </mat-error>
+            </mat-form-field>
+            <br />
+
+            <mat-form-field class='w-full'>
+                <mat-label>Mật khẩu</mat-label>
+                <input id='password' matInput type='password' [formControlName]="'password'" #passwordField />
+                <button
+                    mat-icon-button
+                    type='button'
+                    (click)="
+              passwordField.type === 'password' ? (passwordField.type = 'text') : (passwordField.type = 'password')
+            "
+                    matSuffix
+                >
+                    <mat-icon
+                        class='icon-size-5'
+                        *ngIf="passwordField.type === 'password'"
+                        [svgIcon]="'heroicons_solid:eye'"
+                    ></mat-icon>
+                    <mat-icon
+                        class='icon-size-5'
+                        *ngIf="passwordField.type === 'text'"
+                        [svgIcon]="'heroicons_solid:eye-off'"
+                    ></mat-icon>
+                </button>
+                <mat-error class='text-red-500'> Mật khẩu bắt buộc</mat-error>
+            </mat-form-field>
+
+            <!-- ToS and PP -->
+            <div class='inline-flex items-end w-full mt-1.5'>
+                <mat-checkbox class='ml-2' [color]="'primary'" formControlName='saveLogin' [(ngModel)]='saveLogin'>
+                    Ghi nhớ đăng nhập
+                </mat-checkbox>
+            </div>
+
+            <!-- Submit button -->
+            <button
+                type='submit'
+                class='fuse-mat-button-large w-full mt-6 bg-[#1878c6] text-white disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none'
+                mat-flat-button
+                [disabled]='loginForm.invalid || loggingIn'
+                (click)='onSubmit()'
+            >
+                <span *ngIf='!loggingIn'> Đăng nhập </span>
+                <mat-progress-spinner *ngIf='loggingIn' [diameter]='24' [mode]="'indeterminate'"></mat-progress-spinner>
+            </button>
+            <!-- Submit Deepcare button -->
+            <!--        <button-->
+            <!--          type="submit"-->
+            <!--          class="fuse-mat-button-large w-full mt-6 bg-[#1878c6] text-white disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"-->
+            <!--          mat-flat-button-->
+            <!--          [disabled]="loginForm.invalid || loggingInDeepcare"-->
+            <!--          (click)="onSubmit(this.grant_type.DeepCare)"-->
+            <!--        >-->
+            <!--          <span *ngIf="!loggingInDeepcare"> Đăng nhập bằng tài khoản Deepcare </span>-->
+            <!--          <mat-progress-spinner *ngIf="loggingInDeepcare" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>-->
+            <!--        </button>-->
+            <fuse-alert
+                class='mt-8'
+                *ngIf='showAlert'
+                [appearance]="'outline'"
+                [showIcon]='false'
+                [type]='alert.type'
+                [@shake]="alert.type === 'error'"
+            >
+                {{ alert.message }}
+            </fuse-alert>
+        </div>
+
+    </div>
+    <div class='w-fit'>
+        <img src='assets/images/logo/logo-login.png' alt='logo'>
+    </div>
+</div>
+
+

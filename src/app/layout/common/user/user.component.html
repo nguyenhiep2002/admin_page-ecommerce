@@ -1,0 +1,73 @@
+<!-- Button -->
+<button
+    class='p-0'
+    mat-button
+    [matMenuTriggerFor]="userActions">
+    <div class='flex items-center'>
+        <div class='w-10 h-10 m-auto rounded-full'>
+            <img [src]="user.avatar" alt='Avatar'>
+        </div>
+        <div class='mx-[10px] text-left'>
+            <strong>{{user.name}}</strong>
+            <p class='text-hint'>{{user.email}}</p>
+        </div>
+<!--        <div class='w-7 h-7 m-auto'>-->
+<!--            <button (click)="signOut()" matTooltip="Đăng xuất">-->
+<!--                <mat-icon [svgIcon]="'heroicons_outline:logout'"></mat-icon>-->
+<!--            </button>-->
+<!--        </div>-->
+    </div>
+</button>
+
+
+<mat-menu
+    class='w-fit h-fit rounded-lg p-3'
+    [xPosition]="'before'"
+    #userActions="matMenu">
+    <div class='w-10 h-10 rounded-full'>
+        <img [src]="user.avatar" alt='Avatar'>
+    </div>
+    <div class='my-2 text-left'>
+        <b>{{user.name}}</b>
+        <p class='text-hint'>{{user.email}}</p>
+    </div>
+    <mat-divider class="my-2"></mat-divider>
+
+    <div class='flex justify-center w-full'>
+        <button
+            class='rounded-lg'
+            mat-stroked-button
+            (click)="signOut()">
+            <span>{{ 'Common.Logout' | translate }}</span>
+        </button>
+    </div>
+</mat-menu>
+
+<!--<mat-menu-->
+<!--    class="user-status-menu"-->
+<!--    #userStatus="matMenu">-->
+<!--    <button-->
+<!--        mat-menu-item-->
+<!--        (click)="updateUserStatus('online')">-->
+<!--        <span class="w-4 h-4 mr-3 rounded-full bg-green-500"></span>-->
+<!--        <span>Online</span>-->
+<!--    </button>-->
+<!--    <button-->
+<!--        mat-menu-item-->
+<!--        (click)="updateUserStatus('away')">-->
+<!--        <span class="w-4 h-4 mr-3 rounded-full bg-amber-500"></span>-->
+<!--        <span>Away</span>-->
+<!--    </button>-->
+<!--    <button-->
+<!--        mat-menu-item-->
+<!--        (click)="updateUserStatus('busy')">-->
+<!--        <span class="w-4 h-4 mr-3 rounded-full bg-red-500"></span>-->
+<!--        <span>Busy</span>-->
+<!--    </button>-->
+<!--    <button-->
+<!--        mat-menu-item-->
+<!--        (click)="updateUserStatus('not-visible')">-->
+<!--        <span class="w-4 h-4 mr-3 rounded-full bg-gray-400"></span>-->
+<!--        <span>Invisible</span>-->
+<!--    </button>-->
+<!--</mat-menu>-->

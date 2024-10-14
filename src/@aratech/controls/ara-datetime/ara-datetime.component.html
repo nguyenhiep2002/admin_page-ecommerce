@@ -1,0 +1,117 @@
+<!-- <div class="w-full" *ngIf="group" [formGroup]="group">
+    <mat-form-field class="w-full" appearance="outline">
+        <mat-label>{{label | translate}}</mat-label>
+        <input matInput [tabIndex]="tabIndex" (click)="openDatePicker(datePicker1)" [ngModel]="myValue"
+            [required]="required" (dateChange)="change($event, datePicker1)" formControlName="{{controlName}}"
+            dateInput [matDatepicker]="datePicker1" readonly="{{readOnly}}" [min]="min" [max]="max" />
+        
+        <mat-datepicker-toggle [disabled]="readOnly" matSuffix [for]="datePicker1"></mat-datepicker-toggle>
+        <button mat-button stop-propagation class="btn-close" *ngIf="!readOnly && ngModel" matSuffix mat-icon-button (click)="clear(datePicker1)">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-datepicker #datePicker1></mat-datepicker>
+
+        <mat-error *ngIf="errors.required">
+            <span>{{ ('Category.Msg.Required' | translate) | stringFormat:label}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>
+
+<div class="w-full" *ngIf="!group">
+    <mat-form-field class="w-full" appearance="outline">
+        <mat-label>{{label | translate}}</mat-label>
+        <input matInput [tabIndex]="tabIndex" [ngModel]="myValue" (click)="openDatePicker(datePicker2)"
+            [required]="required" (dateChange)="change($event, datePicker2)" [min]="min" [max]="max"
+            dateInput [matDatepicker]="datePicker2" readonly="{{readOnly}}"/>
+        
+        <mat-datepicker-toggle [disabled]="readOnly" matSuffix [for]="datePicker2"></mat-datepicker-toggle>
+        <button mat-button stop-propagation class="btn-close" *ngIf="!readOnly && ngModel" matSuffix mat-icon-button (click)="clear(datePicker2)">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-datepicker #datePicker2></mat-datepicker>
+    </mat-form-field>
+</div> -->
+
+<div class="w-full" *ngIf="group" [formGroup]="group" fxLayout="row" fxLayoutAlign="start center">
+  <mat-form-field class="form-control w-full">
+    <mat-label>{{ label | translate }}</mat-label>
+    <input
+      matInput
+      [tabIndex]="tabIndex"
+      (click)="openDatePicker(datePicker1)"
+      [ngModel]="myValue"
+      [required]="required"
+      (dateChange)="change($event, datePicker1)"
+      formControlName="{{ controlName }}"
+      dateInput
+      [matDatepicker]="datePicker1"
+      readonly="{{ readOnly }}"
+      [min]="min"
+      [max]="max"
+    />
+    <button
+      stop-propagation
+      class="btn-close"
+      *ngIf="!readOnly && ngModel"
+      matSuffix
+      mat-icon-button
+      (click)="clear(datePicker1)"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <button stop-propagation [disabled]="readOnly" matSuffix mat-icon-button (click)="openDatePicker(datePicker1)">
+      <mat-icon svgIcon="heroicons_outline:calendar"></mat-icon>
+    </button>
+    <!-- <mat-datepicker-toggle [disabled]="readOnly" matSuffix [for]="datePicker1"></mat-datepicker-toggle> -->
+
+    <mat-datepicker #datePicker1></mat-datepicker>
+
+    <mat-error *ngIf="errors.required">
+      <span>{{ 'Category.Msg.Required' | translate | stringFormat : label }}</span>
+    </mat-error>
+  </mat-form-field>
+</div>
+
+<div class="w-full" *ngIf="!group" fxLayout="row" fxLayoutAlign="start center">
+  <mat-form-field class="w-60-p no-validate-control">
+    <mat-label>{{ label | translate }}</mat-label>
+    <input
+      matInput
+      [tabIndex]="tabIndex"
+      [ngModel]="myValue"
+      (click)="openDatePicker(datePicker2)"
+      [required]="required"
+      (dateChange)="change($event, datePicker2)"
+      [min]="min"
+      [max]="max"
+      dateInput
+      [matDatepicker]="datePicker2"
+      readonly="{{ readOnly }}"
+    />
+
+    <button
+      mat-button
+      stop-propagation
+      [disabled]="readOnly"
+      matSuffix
+      mat-icon-button
+      (click)="openDatePicker(datePicker2)"
+    >
+      <mat-icon>calendar_today</mat-icon>
+    </button>
+    <!-- <mat-datepicker-toggle [disabled]="readOnly" matSuffix [for]="datePicker2"></mat-datepicker-toggle> -->
+    <button
+      mat-button
+      stop-propagation
+      class="btn-close"
+      *ngIf="!readOnly && ngModel"
+      matSuffix
+      mat-icon-button
+      (click)="clear(datePicker2)"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-datepicker #datePicker2></mat-datepicker>
+  </mat-form-field>
+</div>

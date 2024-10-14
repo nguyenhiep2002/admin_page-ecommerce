@@ -1,0 +1,105 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{'Cấu hình luật check mặc định' | translate}}</span>
+            <button mat-button class="mat-icon-button" (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar style="width: 700px">
+        <form class="event-form w-100-p" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto">
+            <div fxLayout="row">
+                <mat-form-field class="w-30-p">
+                    <input matInput numbersOnly placeholder="{{'Số ngày lấy kết quả' | translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="dayNumber">
+                </mat-form-field>
+            </div>
+            <div class="rules-config" fxLayout="row" fxLayoutAlign="start start" fusePerfectScrollbar>
+                <div class="mb-16">
+                    <div fxLayout="row" class="mb-8" fxLayoutAlign="start center">
+                        <span class="w-100">{{listRulesGroupLeft.groupLabel | translate}}</span>
+                        <div class="w-60" fxLayoutAlign="center center">
+                            <button fxLayoutAlign="center center" mat-fab
+                                (click)="changeAllRulesConfig(0, listRulesGroupLeft.errorGroup)"
+                                matTooltip="{{'QcChart.Off' | translate}}">
+                                <mat-icon>power_settings_new</mat-icon>
+                            </button>
+                        </div>
+                        <div class="w-60" fxLayoutAlign="center center">
+                            <button fxLayoutAlign="center center" mat-fab
+                                (click)="changeAllRulesConfig(1, listRulesGroupLeft.errorGroup)"
+                                matTooltip="{{'QcChart.Warning' | translate}}">
+                                <mat-icon>warning</mat-icon>
+                            </button>
+                        </div>
+                        <div class="w-60" fxLayoutAlign="center center">
+                            <button fxLayoutAlign="center center" mat-fab
+                                (click)="changeAllRulesConfig(2, listRulesGroupLeft.errorGroup)"
+                                matTooltip="{{'QcChart.Reject' | translate}}">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div fxLayout="row" *ngFor="let rule of listRulesGroupLeft.rules" class="mt-4">
+                        <span class="rule-title">{{rule.name}}</span>
+                        <mat-radio-group class="w-180" [ngModelOptions]="{standalone: true}" [(ngModel)]="rulesConfig[rule.name]" fxLayout="row">
+                            <mat-radio-button class="w-60" [value]="0" fxLayoutAlign="center center">
+                            </mat-radio-button>
+                            <mat-radio-button class="w-60" [value]="1" fxLayoutAlign="center center">
+                            </mat-radio-button>
+                            <mat-radio-button class="w-60" [value]="2" fxLayoutAlign="center center">
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div style="width: 50px;"></div>
+                <div class="mb-16">
+                    <div fxLayout="row" class="mb-8" fxLayoutAlign="start center">
+                        <span class="w-100">{{listRulesGroupRight.groupLabel | translate}}</span>
+                        <div class="w-60" fxLayoutAlign="center center">
+                            <button fxLayoutAlign="center center" mat-fab
+                                (click)="changeAllRulesConfig(0, listRulesGroupRight.errorGroup)"
+                                matTooltip="{{'QcChart.Off' | translate}}">
+                                <mat-icon>power_settings_new</mat-icon>
+                            </button>
+                        </div>
+                        <div class="w-60" fxLayoutAlign="center center">
+                            <button fxLayoutAlign="center center" mat-fab
+                                (click)="changeAllRulesConfig(1, listRulesGroupRight.errorGroup)"
+                                matTooltip="{{'QcChart.Warning' | translate}}">
+                                <mat-icon>warning</mat-icon>
+                            </button>
+                        </div>
+                        <div class="w-60" fxLayoutAlign="center center">
+                            <button fxLayoutAlign="center center" mat-fab
+                                (click)="changeAllRulesConfig(2, listRulesGroupRight.errorGroup)"
+                                matTooltip="{{'QcChart.Reject' | translate}}">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div fxLayout="row" *ngFor="let rule of listRulesGroupRight.rules" class="mt-4">
+                        <span class="rule-title">{{rule.name}}</span>
+                        <mat-radio-group class="w-180" [ngModelOptions]="{standalone: true}" [(ngModel)]="rulesConfig[rule.name]" fxLayout="row">
+                            <mat-radio-button class="w-60" [value]="0" fxLayoutAlign="center center">
+                            </mat-radio-button>
+                            <mat-radio-button class="w-60" [value]="1" fxLayoutAlign="center center">
+                            </mat-radio-button>
+                            <mat-radio-button class="w-60" [value]="2" fxLayoutAlign="center center">
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <span class="mb-16"></span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center">
+        <button mat-button (click)="saveRuleConfig()" class="mat-raised-button mat-accent">
+            {{'QcChart.SaveRuleConfig' | translate}}
+        </button>
+        <button mat-button (click)="cancel()" class="mat-raised-button mat-warn"
+            color="warn">{{'Common.Cancel' | translate}}</button>
+    </div>
+</div>

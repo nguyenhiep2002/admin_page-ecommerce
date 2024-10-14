@@ -1,0 +1,17 @@
+<div class="dialog-content-wrapper">
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+    <div class="text-lg font-medium">{{ 'Common.Confirm' | translate }}</div>
+    <button mat-icon-button (click)="dialogRef.close()" [tabIndex]="-1">
+      <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content class="dialog-content font-medium text-black">{{ confirmMessage | translate }}</div>
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center">
+    <button mat-raised-button class="mat-accent mr-16" (click)="dialogRef.close(true)">
+      {{ 'Common.Confirm' | translate }}
+    </button>
+    <button mat-button class="mat-raised-button mat-warn" (click)="dialogRef.close(false)">
+      {{ 'Common.Cancel' | translate }}
+    </button>
+  </div>
+</div>

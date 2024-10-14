@@ -1,0 +1,24 @@
+:host {
+    .mat-form-field {
+        .btn-close {
+            display: none;
+            .mat-icon {
+                line-height: 1.4em;
+            }
+        }
+
+        &:hover {
+            .btn-close {
+                display: unset;
+            }
+        }
+    }
+
+    .mat-datepicker-toggle {
+        ::ng-deep {
+            .mat-icon-button {
+                width: 16px;
+            }
+        }
+    }
+}

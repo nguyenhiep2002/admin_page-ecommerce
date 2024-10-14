@@ -1,0 +1,19 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{ options.title }}</span>
+            <button mat-icon-button class="ara-icon-button" tabindex="-1" (click)="dialogRef.close()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-16 m-0" fusePerfectScrollbar [ngStyle]="{'max-width': options.maxWidth}" 
+        [innerHtml]="options.html">
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center">
+        <button mat-button (click)="cancel()" class="mat-raised-button mat-accent" color="accent">
+            {{'Common.Close' | translate}}
+        </button>
+    </div>
+</div>

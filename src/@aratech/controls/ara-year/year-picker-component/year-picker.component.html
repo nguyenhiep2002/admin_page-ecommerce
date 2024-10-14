@@ -1,0 +1,20 @@
+<div class="w-full" fxLayout="row" fxLayoutAlign="start center">
+    <mat-form-field class="form-control" appearance="outline" [ngClass]="jpCustomFormFieldClass">
+        <mat-label>{{label | translate}}</mat-label>
+        <input matInput (click)="_openDatepickerOnClick(datepicker)"
+            (keydown.arrowdown)="_openDatepickerOnClick(datepicker)"
+            (keydown.enter)="_openDatepickerOnClick(datepicker)" [formControl]="_inputCtrl" [matDatepicker]="datepicker"
+            [max]="_max" [min]="_min" readonly />
+        <button mat-button stop-propagation class="btn-close" *ngIf="!readOnly && ngModel" matSuffix mat-icon-button
+            (click)="clear(datePickerMonth1)" [min]="min" [max]="max">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="errors.required">
+            <span>{{ ('Category.Msg.Required' | translate) | stringFormat:label}}</span>
+        </mat-error>
+        <mat-datepicker #datepicker (closed)="_takeFocusAway(datepicker)"
+            (yearSelected)="_yearSelectedHandler($event, datepicker)" [touchUi]="touchUi" panelClass="jp-year-picker"
+            startView="multi-year" [min]="min" [max]="max">
+        </mat-datepicker>
+    </mat-form-field>
+</div>

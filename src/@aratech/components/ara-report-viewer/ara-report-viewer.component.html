@@ -1,0 +1,15 @@
+<div class="dialog-content-wrapper h-100-p" fxLayout="column">
+    <mat-toolbar matDialogTitle class="mat-accent accent m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{ options.filename }}</span>
+            <button mat-icon-button class="mat-icon-button" tabindex="-1" (click)="dialogRef.close()"
+                aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-0 m-0 content" fusePerfectScrollbar>
+        <div id="viewerContent"></div>
+    </div>
+</div>

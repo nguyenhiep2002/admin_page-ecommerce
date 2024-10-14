@@ -1,0 +1,8 @@
+<div class="flex w-[400px] absolute bg-[#fef2f2] rounded-2xl border border-[#f87171] shadow-xl">
+  <span matSnackBarLabel class="text-[#aa1f27]"> {{message}} </span>
+  <span matSnackBarActions class="mr-[16px]">
+    <button mat-icon-button (click)="snackBarRef.dismissWithAction()">
+      <mat-icon class="text-[#dc2626] icon-size-5" [svgIcon]="'mat_solid:report_gmailerrorred'"></mat-icon>
+    </button>
+  </span>
+</div>

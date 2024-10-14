@@ -1,0 +1,43 @@
+{
+  "production": false,
+  "hmr": false,
+  "ignoreAuthorization": false,
+  "Api_Domain": "http://test.aratech.vn:12345/apigateway/",
+  "Paging_Size": 10,
+  "Paging_SizeOptions": [5, 10, 25, 50, 100],
+  "ClientId": "ara_adp_client",
+  "ClientSecret": "ara_adp_client_secret",
+  "DefaultRole": "ARA_ADP_Default",
+  "GrantType": {
+    "LDap": "ldap",
+    "DeepCare": "deepcare",
+    "Password": "password"
+  },
+  "AppCode": "ARA_ADP",
+  "TrackingType": [
+    {
+      "id": 1,
+      "name": "1. Hệ thống nhận chỉ định",
+      "bgColor": "rgb(219 234 254)",
+      "textColor": "rgb(30 64 175)"
+    },
+    {
+      "id": 2,
+      "name": "2. Máy nhận chỉ định",
+      "bgColor": "rgb(254 249 195)",
+      "textColor": "rgb(133 77 14)"
+    },
+    {
+      "id": 3,
+      "name": "3. Máy trả kết quả",
+      "bgColor": "rgb(243 232 255)",
+      "textColor": "rgb(107 33 168)"
+    },
+    {
+      "id": 4,
+      "name": "4. Hệ thống trả lại cho chỉ định",
+      "bgColor": "rgb(220 252 231)",
+      "textColor": "rgb(22 101 52)"
+    }
+  ]
+}

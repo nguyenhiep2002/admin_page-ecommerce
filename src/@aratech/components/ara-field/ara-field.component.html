@@ -1,0 +1,164 @@
+<div *ngIf="options.type != 'textarea' && options.type != 'autocomplete' && options.type != 'combotree'" class="w-full" [formGroup]="parentGroup" class="validate-form-control" fxLayout="row"
+    fxLayoutAlign="start center">
+    <mat-form-field class="form-control" *ngIf="options.type == 'text'" appearance="outline">
+        <mat-label>{{options.title | translate}}</mat-label>
+        <input matInput [tabIndex]="options.tabIndex" name="{{fieldName}}" formControlName="{{options.name}}"
+            [(ngModel)]="model[fieldName]" trim="blur" [required]="options.required" [disabled]="disabled" />
+
+        <mat-error *ngFor="let error of options.errors">
+            <span *ngIf="errors[error.name]">
+                {{ error.message }}
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-control" *ngIf="options.type == 'number'" appearance="outline">
+        <mat-label>{{options.title | translate}}</mat-label>
+        <input matInput type="number" [tabIndex]="options.tabIndex" name="{{fieldName}}"
+            formControlName="{{options.name}}" [(ngModel)]="model[fieldName]" trim="blur" [required]="options.required"
+            [disabled]="disabled" />
+
+        <mat-error *ngFor="let error of options.errors">
+            <span *ngIf="errors[error.name]">
+                {{ error.message }}
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="options.type == 'checkbox'" style="display: none;">
+        <input matInput type="text" formControlName="{{options.name}}" [(ngModel)]="model[fieldName]"
+            [disabled]="disabled" />
+    </mat-form-field>
+    <div *ngIf="options.type == 'checkbox'" fxFlex class="mb-12" fxLayoutAlign="start center">
+        <mat-checkbox [disabled]="disabled" [checked]="checkBoxValue" [tabIndex]="options.tabIndex"
+            (keypress)="onCheckboxKeyPress($event)" (change)="onCheckboxChange($event)">
+            {{options.title | translate}}
+        </mat-checkbox>
+    </div>
+
+    <mat-form-field class="form-control" *ngIf="options.type == 'textarea'" appearance="outline">
+        <mat-label>{{options.title | translate}}</mat-label>
+        <textarea matInput [tabIndex]="options.tabIndex" name="{{fieldName}}" formControlName="{{options.name}}"
+            [(ngModel)]="model[fieldName]" trim="blur" rows="{{options.rows}}" [required]="options.required"
+            [disabled]="disabled"></textarea>
+
+        <mat-error *ngFor="let error of options.errors">
+            <span *ngIf="errors[error.name]">
+                {{ error.message }}
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-control" *ngIf="options.type == 'combobox'" appearance="outline">
+        <mat-label>{{options.title | translate}}</mat-label>
+        <mat-select [disabled]="disabled" [tabIndex]="options.tabIndex" formControlName="{{options.name}}"
+            (selectionChange)="comboBoxValueChange($event)" [(ngModel)]="model[fieldName]" [required]="options.required"
+            [multiple]="options.multiple">
+            <mat-select-trigger *ngIf="options.multiple">
+                {{model[fieldName] ? (getTextByValue(model[fieldName][0]) | translate) : ''}}
+                <span *ngIf="model[fieldName]?.length > 1" class="example-additional-selection">
+                    (+{{model[fieldName].length - 1}})
+                </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let item of comboData" [value]="item[options.valueField]" class="opt-item">
+                {{ options.translate ? (item[options.displayField] | translate) : item[options.displayField]}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngFor="let error of options.errors">
+            <span *ngIf="errors[error.name]">
+                {{ error.message }}
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-control" *ngIf="options.type == 'colorpicker'" appearance="outline">
+        <mat-label>{{options.title | translate}}</mat-label>
+        <input matInput [tabIndex]="options.tabIndex" name="{{fieldName}}" formControlName="{{options.name}}"
+            [(ngModel)]="model[fieldName]" trim="blur" [required]="options.required" readonly />
+
+        <ara-color-picker *ngIf="!disabled" matSuffix class="color-suffix" [size]="'25px'" [showIcon]="true"
+            [(selectedBg)]="model[fieldName]">
+        </ara-color-picker>
+        <mat-error *ngFor="let error of options.errors">
+            <span *ngIf="errors[error.name]">
+                {{ error.message }}
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-control" *ngIf="options.type == 'datetime'" appearance="outline">
+        <mat-label>{{options.title | translate}}</mat-label>
+        <input matInput [tabIndex]="options.tabIndex" name="{{fieldName}}" formControlName="{{options.name}}"
+            [(ngModel)]="model[fieldName]" trim="blur" [required]="options.required" [matDatepicker]="datePicker"
+            [disabled]="disabled" />
+        
+        <button mat-button stop-propagation [disabled]="disabled" 
+            matSuffix mat-icon-button (click)="datePicker.open()">
+            <mat-icon>calendar_today</mat-icon>
+        </button>
+        <!-- <mat-datepicker-toggle matSuffix [for]="datePicker" [disabled]="disabled"></mat-datepicker-toggle> -->
+        <mat-datepicker #datePicker></mat-datepicker>
+        <mat-error *ngFor="let error of options.errors">
+            <span *ngIf="errors[error.name]">
+                {{ error.message }}
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-control" *ngIf="options.type == 'currency'" appearance="outline">
+        <mat-label>{{options.title | translate}}</mat-label>
+        <input matInput [tabIndex]="options.tabIndex" name="{{fieldName}}" formControlName="{{options.name}}"
+            [ngModel]="currencyValue" (ngModelChange)="currencyValueChange($event)" trim="blur"
+            [required]="options.required" [disabled]="disabled" mask="separator.3" thousandSeparator="," />
+
+        <mat-error *ngFor="let error of options.errors">
+            <span *ngIf="errors[error.name]">
+                {{ error.message }}
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-control" *ngIf="options.type == 'percent'" appearance="outline">
+        <mat-label>{{options.title | translate}}</mat-label>
+        <input matInput [tabIndex]="options.tabIndex" name="{{fieldName}}" formControlName="{{options.name}}"
+            [ngModel]="currencyValue" (ngModelChange)="currencyValueChange($event)" trim="blur"
+            [required]="options.required" [disabled]="disabled" mask="percent" [dropSpecialCharacters]="false" />
+        <span class="pl-4" matSuffix>%</span>
+        <mat-error *ngFor="let error of options.errors">
+            <span *ngIf="errors[error.name]">
+                {{ error.message }}
+            </span>
+        </mat-error>
+    </mat-form-field>
+
+    <div #childContainer></div>
+</div>
+<div *ngIf="options.type == 'textarea'" class="w-full" [formGroup]="parentGroup" class="validate-form-control" fxLayout="row"
+    fxLayoutAlign="start center">
+    <mat-form-field class="form-control textarea-control" *ngIf="options.type == 'textarea'" appearance="outline">
+        <mat-label>{{options.title | translate}}</mat-label>
+        <textarea matInput [tabIndex]="options.tabIndex" name="{{fieldName}}" formControlName="{{options.name}}"
+            [(ngModel)]="model[fieldName]" trim="blur" rows="{{options.rows}}" [required]="options.required"
+            [disabled]="disabled"></textarea>
+
+        <mat-error *ngFor="let error of options.errors">
+            <span *ngIf="errors[error.name]">
+                {{ error.message }}
+            </span>
+        </mat-error>
+    </mat-form-field>
+    <div #childContainer></div>
+</div>
+<ara-autocomplete *ngIf="options.type == 'autocomplete'" fxFlex="100%" ngDefaultControl controlName="{{options.name}}"
+    [group]="parentGroup" [(ngModel)]="model[fieldName]" label="{{options.title | translate}}" [service]="refService"
+    [params]="options.referenceServiceParams" [required]="options.required"
+    class="validate-form-control" [displayField]="options.displayField"
+    [valueField]="options.valueField">
+</ara-autocomplete>
+
+<ara-combotree *ngIf="options.type == 'combotree'" fxFlex="100%" ngDefaultControl controlName="{{options.name}}"
+    [group]="parentGroup" [(ngModel)]="model[fieldName]" label="{{options.title | translate}}" [service]="refService"
+    [params]="options.referenceServiceParams" [required]="options.required"
+    class="validate-form-control" [displayField]="options.displayField"
+    [valueField]="options.valueField">
+</ara-combotree>

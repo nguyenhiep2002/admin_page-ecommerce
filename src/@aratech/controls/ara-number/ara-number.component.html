@@ -1,0 +1,50 @@
+<div class="w-full" *ngIf="group" [formGroup]="group">
+    <mat-form-field class="w-full">
+      <mat-label>{{ label | translate }}</mat-label>
+      <input
+        type="number"
+        matInput
+        [tabIndex]="tabIndex"
+        name="{{ name }}"
+        formControlName="{{ controlName }}"
+        [(ngModel)]="ngModel"
+        trim="blur"
+        [required]="required"
+        (ngModelChange)="change()"
+        readonly="{{ readOnly }}"
+        [min]="minVal"
+        [max]="maxVal"
+      />
+  
+      <mat-error *ngIf="errors.required">
+        <span>{{ 'Category.Msg.Required' | translate | stringFormat : label }}</span>
+      </mat-error>
+  
+      <mat-error *ngIf="errors.minlength">
+        <span>{{ 'Category.Msg.MinLength' | translate | stringFormat : label : errors.minlength.requiredLength }}</span>
+      </mat-error>
+  
+      <mat-error *ngIf="errors.maxlength">
+        <span>{{ 'Category.Msg.MaxLength' | translate | stringFormat : label : errors.maxlength.requiredLength }}</span>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  
+  <div class="w-full" *ngIf="!group">
+    <mat-form-field class="w-full">
+      <mat-label>{{ label | translate }}</mat-label>
+      <input
+        type="number"
+        matInput
+        [tabIndex]="tabIndex"
+        [(ngModel)]="ngModel"
+        [min]="minVal"
+        [max]="maxVal"
+        trim="blur"
+        [required]="required"
+        (ngModelChange)="change()"
+        readonly="{{ readOnly }}"
+      />
+    </mat-form-field>
+  </div>
+  

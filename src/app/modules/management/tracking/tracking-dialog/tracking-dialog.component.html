@@ -1,0 +1,15 @@
+<div class='flex flex-row items-center px-6 h-20 min-h-20 text-white bg-primary'>
+    <div class='ml-3 text-2xl font-semibold tracking-tight'>{{ data.title | translate }}</div>
+    <button
+        class='ml-auto'
+        mat-icon-button
+        (click)='dialogRef.close()'>
+        <mat-icon
+            class='text-current'
+            [svgIcon]="'heroicons_outline:x'"></mat-icon>
+    </button>
+</div>
+<mat-dialog-content>
+
+</mat-dialog-content>
+

@@ -1,0 +1,29 @@
+//@import "src/@fuse/scss/fuse";
+
+:host {  
+    .mat-icon {
+        cursor: pointer;
+    }
+
+    .word-icon {
+        color: darkblue;
+    }
+
+    .excel-icon {
+        color: darkgreen;
+    }
+
+    .pdf-icon {
+        color: darkred;
+    }
+
+    .btn-close {
+        display: none !important;
+    }
+
+    &:hover {
+        .btn-close {
+            display: unset !important;
+        }
+    }
+}

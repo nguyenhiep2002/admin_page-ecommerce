@@ -1,0 +1,54 @@
+:host {
+    .mat-icon {
+        // min-width: 0px;
+        // min-height: 0px;
+        // line-height: 150%;
+        // height: 22px;
+        // width: 22px;
+    }
+    .btn-close {
+        display: none !important;
+    }
+
+    &:hover {
+        .btn-close {
+            display: unset !important;
+        }
+    }
+}
+
+.opt-add {
+    padding: 0 !important;
+
+    ::ng-deep {
+        .mat-pseudo-checkbox {
+            display: none;
+        }
+
+        .mat-option-text {
+            height: 100%;
+            width: 100%;
+        }
+    }
+}
+
+::ng-deep {
+    .mat-select-panel .mat-optgroup-label, .mat-select-panel .mat-option {
+        height: auto !important;
+    }
+}
+
+.opt-item {
+    height: unset;
+    min-height: 40px;
+    line-height: 1.5em !important;
+    padding: 4px 12px;
+
+    ::ng-deep {
+        .mat-option-text {
+            height: unset;
+            line-height: unset;
+            white-space: normal;
+        }
+    }
+}

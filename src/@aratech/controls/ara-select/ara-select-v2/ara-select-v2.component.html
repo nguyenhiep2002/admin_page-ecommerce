@@ -1,0 +1,15 @@
+<mat-form-field appearance="fill"  class='w-full fuse-mat-dense fuse-mat-rounded form-control'>
+    <mat-label *ngIf='label'>{{label}}</mat-label>
+    <mat-select  #inputSelect [(ngModel)]="selectedValue"  (selectionChange)="selectionChange($event)">
+    <mat-option *ngFor="let item of itemsCopy"  [value]="item[valueField]" class="opt-item">
+        {{item[displayField]}}
+    </mat-option>
+
+    </mat-select>
+    <button stop-propagation *ngIf="selectedValue" class="btn-close" matSuffix mat-icon-button (click)="clear()">
+        <mat-icon>close</mat-icon>
+    </button>
+    <mat-error *ngIf="errors.required">
+        <span>{{ ('Category.Msg.Required' | translate) | stringFormat:label}}</span>
+    </mat-error>
+</mat-form-field>

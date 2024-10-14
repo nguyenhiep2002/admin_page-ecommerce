@@ -1,0 +1,180 @@
+<div *ngIf="!tableView && !simpleView && !viewOnly" class="multi-file-wrapper  ">
+    <div class="multi-file-header">
+        <div class="multi-file-title">{{label | translate}}</div>
+        <button *ngIf="!readOnly" class="ara-icon-button" mat-icon-button type="button" (click)="chooseFile()"
+            [matTooltip]="'Common.AddFile' | translate">
+            <mat-icon>add</mat-icon>
+        </button>
+
+        <!-- <button *ngIf="!readOnly" class="ara-icon-button" mat-icon-button type="button" (click)="copy()"
+            [matTooltip]="'Common.Copy' | translate">
+            <fa-icon icon="copy"></fa-icon>
+        </button>
+
+        <button *ngIf="!readOnly" class="ara-icon-button" mat-icon-button type="button" (click)="paste()"
+            [matTooltip]="'Common.Paste' | translate">
+            <mat-icon>assignment_turned_in</mat-icon>
+        </button> -->
+    </div>
+    <div class="multi-file-body flex flex-col"  *ngIf="files && files.length > 0">
+        <div class="file-item flex h-fit w-fit " *ngFor="let file of files">
+            <fa-icon *ngIf="file.extension == 'doc' || file.extension == 'docx'" [icon]="fileWordIcon"
+                class="word-icon"></fa-icon>
+            <fa-icon *ngIf="file.extension == 'xls' || file.extension == 'xlsx'" [icon]="fileExcelIcon"
+                class="excel-icon"></fa-icon>
+            <fa-icon *ngIf="file.extension == 'pdf'" [icon]="filePdfIcon" class="pdf-icon"></fa-icon>
+            <fa-icon *ngIf="file.extension == 'file'" [icon]="fileIcon" class="file-icon"></fa-icon>
+            <a *ngIf="file.id" class="mx-4 break-all" href="javascript:void(0)" (click)="viewFile(file)">{{file.name}}</a>
+            <label *ngIf="!file.id" class="mx-4 break-all">{{file.name}}</label>
+            <button *ngIf="!readOnly" class="ara-icon-button" mat-icon-button type="button" (click)="clear(file)"
+                [matTooltip]="'Common.Delete' | translate">
+                <mat-icon>clear</mat-icon>
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<div *ngIf="!tableView && simpleView && !viewOnly" fxLayout="{{layoutTmp}} wrap" fxFlex
+    fxLayoutAlign="{{ layoutTmp == 'column' ? 'center start' : 'start center'}}">
+    <div class="file-item flex h-fit w-fit " *ngFor="let file of files">
+        <fa-icon *ngIf="file.extension == 'doc' || file.extension == 'docx'" [icon]="fileWordIcon" class="word-icon">
+        </fa-icon>
+        <fa-icon *ngIf="file.extension == 'xls' || file.extension == 'xlsx'" [icon]="fileExcelIcon" class="excel-icon">
+        </fa-icon>
+        <fa-icon *ngIf="file.extension == 'pdf'" [icon]="filePdfIcon" class="pdf-icon"></fa-icon>
+        <fa-icon *ngIf="file.extension == 'file'" [icon]="fileIcon" class="file-icon"></fa-icon>
+        <a *ngIf="file.id" class="mx-4 break-all" href="javascript:void(0)" (click)="viewFile(file)">{{file.name}}</a>
+        <label *ngIf="!file.id" class="mx-4 break-all">{{file.name}}</label>
+        <button *ngIf="!readOnly" class="ara-icon-button" mat-icon-button type="button" (click)="clear(file)"
+            [matTooltip]="'Common.Delete' | translate">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+    <button *ngIf="!readOnly" class="ara-icon-button ml-16" mat-icon-button type="button" (click)="chooseFile()"
+        [matTooltip]="'Common.AddFile' | translate">
+        <mat-icon>add</mat-icon>
+    </button>
+    <button *ngIf="!readOnly && copyFile" class="ara-icon-button" mat-icon-button type="button" (click)="copy()"
+        [matTooltip]="'Common.Copy' | translate">
+        <mat-icon>file_copy</mat-icon>
+    </button>
+
+    <button *ngIf="!readOnly && copyFile" class="ara-icon-button" mat-icon-button type="button" (click)="paste()"
+        [matTooltip]="'Common.Paste' | translate">
+        <mat-icon>assignment_turned_in</mat-icon>
+    </button>
+</div>
+
+<div *ngIf="!tableView && viewOnly && files && files.length > 0" fxLayout="{{layoutTmp}} wrap" fxFlex
+    fxLayoutAlign="{{ layoutTmp == 'column' ? 'center start' : 'start center'}}">
+    <div class="file-item flex h-fit w-fit " *ngFor="let file of files">
+        <fa-icon *ngIf="file.extension == 'doc' || file.extension == 'docx'" [icon]="fileWordIcon" class="word-icon">
+        </fa-icon>
+        <fa-icon *ngIf="file.extension == 'xls' || file.extension == 'xlsx'" [icon]="fileExcelIcon" class="excel-icon">
+        </fa-icon>
+        <fa-icon *ngIf="file.extension == 'pdf'" [icon]="filePdfIcon" class="pdf-icon"></fa-icon>
+        <fa-icon *ngIf="file.extension == 'file'" [icon]="fileIcon" class="file-icon"></fa-icon>
+        <a class="mx-4 break-all" href="javascript:void(0)" (click)="viewFile(file)">{{file.name}}</a>
+    </div>
+    <button *ngIf="copyFile" class="ara-icon-button" mat-icon-button type="button" (click)="copy()"
+        [matTooltip]="'Common.Copy' | translate">
+        <mat-icon>file_copy</mat-icon>
+    </button>
+</div>
+
+<div *ngIf="tableView" class="multi-file-wrapper" fxLayout="column">
+    <div class="multi-file-header" *ngIf="label">
+        <div class="multi-file-title">{{label | translate}}</div>
+        <!-- <button *ngIf="!readOnly && !viewOnly" class="ara-icon-button" mat-icon-button type="button" (click)="chooseFile()"
+            [matTooltip]="'Common.AddFile' | translate">
+            <mat-icon>add</mat-icon>
+        </button> -->
+    </div>
+    <mat-table class="multi-file-table" #table [dataSource]="dataSource" fusePerfectScrollbar>
+        <ng-container cdkColumnDef="hiddenFirst">
+            <mat-header-cell *cdkHeaderCellDef>{{'Common.No' | translate}}</mat-header-cell>
+            <mat-cell *cdkCellDef="let item; let i = index;">
+            </mat-cell>
+        </ng-container>
+        <ng-container cdkColumnDef="id">
+            <mat-header-cell *cdkHeaderCellDef fxLayoutAlign="center center" fxFlex="60px" class="pr-8">{{'Common.No' | translate}}</mat-header-cell>
+            <mat-cell *cdkCellDef="let item; let i = index;" fxLayoutAlign="center center" fxFlex="60px" class="pr-8">
+                <span class="truncate">{{i + 1}}</span>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="name">
+            <mat-header-cell *cdkHeaderCellDef class="pr-8">{{'Common.Filename' | translate}}</mat-header-cell>
+            <mat-cell *cdkCellDef="let file; let i = index;" class="pr-8">
+                <div class="file-item flex h-fit w-fit " fxLayout="row" fxLayoutAlign="start center">
+                    <fa-icon *ngIf="file.extension == 'doc' || file.extension == 'docx'" [icon]="fileWordIcon"
+                        class="word-icon"></fa-icon>
+                    <fa-icon *ngIf="file.extension == 'xls' || file.extension == 'xlsx'" [icon]="fileExcelIcon"
+                        class="excel-icon"></fa-icon>
+                    <fa-icon *ngIf="file.extension == 'pdf'" [icon]="filePdfIcon" class="pdf-icon"></fa-icon>
+                    <fa-icon *ngIf="file.extension == 'file'" [icon]="fileIcon" class="file-icon"></fa-icon>
+                    <a *ngIf="file.id" class="mx-4 break-all" href="javascript:void(0)" (click)="viewFile(file)">{{file.name}}</a>
+                    <span *ngIf="!file.id" class="truncate mx-4 break-all">{{file.name}}</span>
+                </div>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container *ngFor="let field of customFields" cdkColumnDef="{{field.name}}">
+            <mat-header-cell *cdkHeaderCellDef fxLayoutAlign="center center" class="pr-8"
+                [ngStyle]="{'flex': field.width ? ('0 1 ' + field.width) : ''}">
+                <div *ngIf="field.type == 'datetime' || field.type == 'number'" fxFlex fxLayoutAlign="center center">
+                    {{ field.title | translate}}
+                </div>
+                <div *ngIf="field.type != 'datetime' && field.type != 'number'" fxFlex fxLayoutAlign="start center">
+                    {{ field.title | translate}}
+                </div>
+            </mat-header-cell>
+
+            <mat-cell *cdkCellDef="let item" [ngSwitch]="field.type" class="pr-8"
+                [ngStyle]="{'flex': field.width ? ('0 1 ' + field.width) : ''}">
+                <div *ngSwitchCase="'checkbox'" fxFlex fxLayoutAlign="center center">
+                    <mat-icon *ngIf="item[field.name] == true">check_box</mat-icon>
+                    <mat-icon *ngIf="item[field.name] == false">check_box_outline_blank</mat-icon>
+                </div>
+                <div *ngSwitchCase="'number'" fxFlex fxLayoutAlign="center center">
+                    <p matTooltip="{{item[field.name]}}" fxFlex fxLayoutAlign="center center">
+                        {{item[field.name]}}
+                    </p>
+                </div>
+                <div *ngSwitchCase="'datetime'" fxFlex fxLayoutAlign="center center">
+                    <p matTooltip="{{item[field.name] | date: 'dd/mm/yyyy'}}" fxFlex fxLayoutAlign="center center">
+                        {{item[field.name] | date: 'dd/MM/yyyy'}}
+                    </p>
+                </div>
+                <div *ngSwitchCase="'currency'" fxFlex fxLayoutAlign="center center">
+                    <p matTooltip="{{item[field.name] | number}}" fxFlex fxLayoutAlign="center center">
+                        {{item[field.name] | number}}
+                    </p>
+                </div>
+                <p *ngSwitchDefault class="truncate" matTooltip="{{item[field.name]}}">
+                    {{item[field.name]}}
+                </p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="actions">
+            <mat-header-cell *cdkHeaderCellDef fxLayoutAlign="center center" fxFlex="80px">
+                {{'Common.Action' | translate}}
+            </mat-header-cell>
+            <mat-cell *cdkCellDef="let item" fxLayoutAlign="center center" fxFlex="80px">
+                <button [disabled]="readOnly" class="ara-icon-button" mat-icon-button matTooltip="{{'Common.Delete' | translate}}" (click)="clear(item)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+        <ng-container cdkColumnDef="hiddenLast">
+            <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+            <mat-cell *cdkCellDef="let item; let i = index;"></mat-cell>
+        </ng-container>
+        <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+        <mat-row *cdkRowDef="let item; columns: displayedColumns;"></mat-row>        
+    </mat-table>
+    <add-link-button *ngIf="!readOnly" class="pt-12" buttonTitle="{{addButtonTitle | translate}}" (click)="chooseFile()"></add-link-button>
+</div>
+<input #fileInput type="file" [accept]="accept" style="display: none;" (change)="fileChange($event)" multiple />

@@ -1,0 +1,113 @@
+<!-- <div class="w-full" *ngIf="group" [formGroup]="group">
+    <mat-form-field class="w-full" appearance="outline">
+        <mat-label>{{label | translate}}</mat-label>
+        <input matInput [tabIndex]="tabIndex" name="{{name}}" formControlName="{{controlName}}" [(ngModel)]="ngModel"
+            trim="blur" [required]="required" readonly="{{readOnly}}" (ngModelChange)="change()" [disabled]="disabled" />
+        <button mat-button stop-propagation class="btn-close" *ngIf="!readOnly && ngModel" matSuffix mat-icon-button (click)="ngModel = ''">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="errors.required">
+            <span>{{ ('Category.Msg.Required' | translate) | stringFormat:label}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.minlength">
+            <span>{{ ('Category.Msg.MinLength' | translate) | stringFormat:label:errors.minlength.requiredLength}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.maxlength">
+            <span>{{ ('Category.Msg.MaxLength' | translate) | stringFormat:label:errors.maxlength.requiredLength}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.exists">
+            <span>{{ ('Category.Msg.Exists' | translate) | stringFormat:label}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>
+
+<div class="w-full" *ngIf="!group">
+    <mat-form-field class="w-full" appearance="outline">
+        <mat-label>{{label | translate}}</mat-label>
+        <input matInput [tabIndex]="tabIndex" name="{{name}}" [(ngModel)]="ngModel"
+            trim="blur" [required]="required" readonly="{{readOnly}}" (ngModelChange)="change()" [disabled]="disabled" />
+        <button mat-button stop-propagation class="btn-close" *ngIf="!readOnly && ngModel" matSuffix mat-icon-button (click)="ngModel = ''">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div> -->
+
+<div class="w-full" *ngIf="group" [formGroup]="group" fxLayout="row" fxLayoutAlign="start center">
+  <mat-form-field
+    [ngClass]="{
+      'fuse-mat-dense fuse-mat-rounded': borderRadius,
+      'form-control w-full': true
+    }"
+  >
+    <mat-label>{{ label | translate }}</mat-label>
+    <input
+      matInput
+      [tabIndex]="tabIndex"
+      name="{{ name }}"
+      formControlName="{{ controlName }}"
+      [(ngModel)]="ngModel"
+      (keypress)="keyPress($event)"
+      type="{{ inputType }}"
+      trim="blur"
+      [required]="required"
+      readonly="{{ readOnly }}"
+      (ngModelChange)="change()"
+      [disabled]="disabled"
+      placeholder="{{ placeholder }}"
+    />
+    <button mat-icon-button type="button" [disabled]="disabled" class="btn-close" *ngIf="!readOnly && ngModel" matSuffix (click)="clear()">
+      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:x'"></mat-icon>
+    </button>
+    <mat-error *ngIf="errors.required">
+      <span>{{ 'Category.Msg.Required' | translate | stringFormat : label }}</span>
+    </mat-error>
+
+    <mat-error *ngIf="errors.minlength">
+      <span>{{ 'Category.Msg.MinLength' | translate | stringFormat : label : errors.minlength.requiredLength }}</span>
+    </mat-error>
+
+    <mat-error *ngIf="errors.maxlength">
+      <span>{{ 'Category.Msg.MaxLength' | translate | stringFormat : label : errors.maxlength.requiredLength }}</span>
+    </mat-error>
+    <mat-error *ngIf="errors.email">
+      <span>{{ 'Category.Msg.Email' | translate | stringFormat : label }}</span>
+    </mat-error>
+    <mat-error *ngIf="errors.exists">
+      <span>{{ 'Category.Msg.Exists' | translate | stringFormat : label }}</span>
+    </mat-error>
+    <mat-error *ngFor="let advError of advancedValidErrors">
+      <span *ngIf="errors[advError.name]">{{ advError.message | translate }}</span>
+    </mat-error>
+  </mat-form-field>
+</div>
+
+<div class="w-full" *ngIf="!group" fxLayout="row" fxLayoutAlign="start center">
+  <mat-form-field
+    [ngClass]="{
+      'fuse-mat-dense fuse-mat-rounded': borderRadius,
+      'w-full no-validate-control': true
+    }"
+  >
+    <mat-label>{{ label | translate }}</mat-label>
+    <input
+      matInput
+      type="{{ inputType }}"
+      [tabIndex]="tabIndex"
+      name="{{ name }}"
+      [(ngModel)]="ngModel"
+      (keypress)="keyPress($event)"
+      trim="blur"
+      [required]="required"
+      readonly="{{ readOnly }}"
+      (ngModelChange)="change()"
+      [disabled]="disabled"
+      placeholder="{{ placeholder }}"
+    />
+    <button class="btn-close"  *ngIf="!readOnly && ngModel" matSuffix mat-icon-button type="button" (click)="clear()">
+      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:x'"></mat-icon>
+    </button>
+  </mat-form-field>
+</div>

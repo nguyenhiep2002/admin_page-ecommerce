@@ -1,0 +1,79 @@
+<!-- <div class="w-full" *ngIf="group" [formGroup]="group">
+    <mat-form-field class="w-full">
+        <mat-label>{{label | translate}}</mat-label>
+        <input matInput [tabIndex]="tabIndex" name="{{name}}" formControlName="{{controlName}}"
+            [required]="required" readonly="{{readOnly}}" [ngClass]="'t-a-' + align"
+            (ngModelChange)="change($event)" [ngModel]="myModel"
+            mask="percent" [dropSpecialCharacters]="false" />
+        <span class="pl-4" matSuffix>{{suffix}}</span>
+        <mat-error *ngIf="errors.required">
+            <span>{{ ('Category.Msg.Required' | translate) | stringFormat:label}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.minlength">
+            <span>{{ ('Category.Msg.MinLength' | translate) | stringFormat:label:errors.minlength.requiredLength}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.maxlength">
+            <span>{{ ('Category.Msg.MaxLength' | translate) | stringFormat:label:errors.maxlength.requiredLength}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.min">
+            <span>{{ ('Category.Msg.Min' | translate) | stringFormat:label:errors.min.max}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.max">
+            <span>{{ ('Category.Msg.Max' | translate) | stringFormat:label:errors.max.max}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>
+
+<div class="w-full" *ngIf="!group">
+    <mat-form-field class="w-full">
+        <mat-label>{{label | translate}}</mat-label>
+        <input matInput [tabIndex]="tabIndex" [ngModel]="myModel" [ngClass]="'t-a-' + align"
+            [required]="required" (ngModelChange)="change($event)" readonly="{{readOnly}}"
+            mask="percent" [dropSpecialCharacters]="false" />
+        <span class="pl-4" matSuffix>{{suffix}}</span>
+    </mat-form-field>
+</div> -->
+
+<div class="w-full" *ngIf="group" [formGroup]="group" fxLayout="row" fxLayoutAlign="start center">
+    <mat-form-field class="form-control">
+        <mat-label>{{label | translate}}</mat-label>
+        <input matInput [tabIndex]="tabIndex" name="{{name}}" formControlName="{{controlName}}"
+            [required]="required" readonly="{{readOnly}}" [ngClass]="'t-a-' + align"
+            (ngModelChange)="change($event)" [ngModel]="myModel"
+            mask="percent" [dropSpecialCharacters]="false" />
+        <span class="pl-4" matSuffix>{{suffix}}</span>
+        <mat-error *ngIf="errors.required">
+            <span>{{ ('Category.Msg.Required' | translate) | stringFormat:label}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.minlength">
+            <span>{{ ('Category.Msg.MinLength' | translate) | stringFormat:label:errors.minlength.requiredLength}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.maxlength">
+            <span>{{ ('Category.Msg.MaxLength' | translate) | stringFormat:label:errors.maxlength.requiredLength}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.min">
+            <span>{{ ('Category.Msg.Min' | translate) | stringFormat:label:errors.min.max}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.max">
+            <span>{{ ('Category.Msg.Max' | translate) | stringFormat:label:errors.max.max}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>
+
+<div class="w-full" *ngIf="!group" fxLayout="row" fxLayoutAlign="start center">
+    <span class="pr-12 label" fxLayoutAlign="end center">{{label | translate}}</span>
+    <mat-form-field class="form-control">
+        <input matInput [tabIndex]="tabIndex" [ngModel]="myModel" [ngClass]="'t-a-' + align"
+            [required]="required" (ngModelChange)="change($event)" readonly="{{readOnly}}"
+            mask="percent" [dropSpecialCharacters]="false" />
+        <span class="pl-4" matSuffix>{{suffix}}</span>
+    </mat-form-field>
+</div>

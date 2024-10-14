@@ -1,0 +1,147 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <ng-template #header view-template></ng-template>
+
+    <div class="flex flex-auto overflow-hidden">
+        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
+            <mat-table fxFlex class="monre-table ara-table" #table [dataSource]="dataSource" matSort
+                fusePerfectScrollbar>
+
+                <ng-container cdkColumnDef="hiddenFirst">
+                    <mat-header-cell *cdkHeaderCellDef>{{'Common.No' | translate}}</mat-header-cell>
+                    <mat-cell *cdkCellDef="let item; let i = index;">
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container cdkColumnDef="id">
+                    <mat-header-cell *cdkHeaderCellDef>{{'Common.No' | translate}}</mat-header-cell>
+                    <mat-cell *cdkCellDef="let item; let i = index;">
+                        <span class="truncate">{{(pageIndex * pageSize) + i + 1}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container *ngFor="let field of configs.fields" cdkColumnDef="{{field.name}}">
+                    <mat-header-cell *cdkHeaderCellDef fxLayoutAlign="center center" class="pr-8"
+                        [ngStyle]="{'flex': field.width ? ('0 1 ' + field.width) : ''}">
+                        <div *ngIf="field.type == 'checkbox' || field.type == 'datetime'" fxFlex
+                            fxLayoutAlign="center center">
+                            {{ field.title | translate}}
+                        </div>
+                        <div *ngIf="field.type != 'checkbox' && field.type != 'datetime'" fxFlex
+                            fxLayoutAlign="start center">
+                            {{ field.title | translate}}
+                        </div>
+                    </mat-header-cell>
+
+                    <mat-cell *cdkCellDef="let item" [ngSwitch]="field.type" class="pr-8"
+                        [ngStyle]="{'flex': field.width ? ('0 1 ' + field.width) : ''}">
+                        <div
+                            *ngSwitchCase="field.type === 'combobox' || field.type === 'combotree' || field.type === 'autocomplete' ? field.type : ''">
+                            <p *ngIf="field.objectField && item[field.objectField] && item[field.objectField][field.displayField]" class="truncate"
+                                matTooltip="{{item[field.objectField][field.displayField]}}">
+                                {{item[field.objectField][field.displayField]}}
+                            </p>
+                            <p *ngIf="field.objectField && item[field.objectField] && !item[field.objectField][field.displayField]" class="truncate"
+                                matTooltip="{{item[field.objectField]}}">
+                                {{item[field.objectField]}}
+                            </p>
+                            <p *ngIf="!field.objectField && !field.comboData" class="truncate"
+                                matTooltip="{{item[field.name]}}">
+                                {{item[field.name]}}
+                            </p>
+                            <p *ngIf="!field.objectField && field.comboData" class="truncate">
+                                {{getDisplayTextFromComboData(item[field.name], field)}}
+                            </p>
+                        </div>
+
+                        <div *ngSwitchCase="'checkbox'" fxFlex fxLayoutAlign="center center">
+                            <mat-icon *ngIf="item[field.name] == true">check_box</mat-icon>
+                            <mat-icon *ngIf="item[field.name] == false">check_box_outline_blank</mat-icon>
+                        </div>
+                        <div *ngSwitchCase="'number'" fxFlex fxLayoutAlign="center center">
+                            <p matTooltip="{{item[field.name]}}" fxFlex fxLayoutAlign="center center">
+                                {{item[field.name]}}
+                            </p>
+                        </div>
+                        <div *ngSwitchCase="'currency'" fxFlex fxLayoutAlign="center center">
+                            <p matTooltip="{{item[field.name] | number}}" fxFlex fxLayoutAlign="center center">
+                                {{item[field.name] | number}}
+                            </p>
+                        </div>
+                        <div *ngSwitchCase="'datetime'" fxFlex fxLayoutAlign="center center">
+                            <p matTooltip="{{item[field.name] | date: 'dd/MM/yyyy'}}" fxFlex fxLayoutAlign="center center">
+                                {{item[field.name] | date: 'dd/MM/yyyy'}}
+                            </p>
+                        </div>
+                        <p *ngSwitchDefault class="truncate" matTooltip="{{item[field.name]}}">
+                            {{item[field.name]}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container cdkColumnDef="actions">
+                    <mat-header-cell *cdkHeaderCellDef fxLayoutAlign="center center" class="items-center justify-center"
+                        [ngStyle]="{'max-width': actionsColumnWidth + 'px'}"
+                        fxFlex="{{actionsColumnWidth + 'px'}}">
+                        {{'Common.Action' | translate}}
+                    </mat-header-cell>
+                    <mat-cell *cdkCellDef="let item" fxLayoutAlign="center center" class="items-center justify-center"
+                        [ngStyle]="{'max-width': actionsColumnWidth + 'px'}"
+                        fxFlex="{{actionsColumnWidth + 'px'}}">
+                        <ng-container *ngFor="let action of customActions">
+                            <button [actionCode]="action.actionCode" class="ara-icon-button" mat-icon-button
+                                *ngIf="action.type == 'OpenDialog'" matTooltip="{{action.title | translate}}"
+                                (click)="openDialog(item, action)" [disabled]="checkActionDisable(item, action)">
+                                <mat-icon>{{action.icon}}</mat-icon>
+                            </button>
+                            <button [actionCode]="action.actionCode" class="ara-icon-button" mat-icon-button
+                                *ngIf="action.type == 'Function'" matTooltip="{{action.title | translate}}"
+                                (click)="doAction(item, action)" [disabled]="checkActionDisable(item, action)">
+                                <mat-icon>{{action.icon}}</mat-icon>
+                            </button>
+                            <button [actionCode]="action.actionCode" class="ara-icon-button" mat-icon-button
+                                *ngIf="action.type == 'Routing'" href="javascript:void(0)"
+                                matTooltip="{{action.title | translate}}"
+                                [routerLink]="checkActionDisable(item, action) ? '/' : ((action.routingUrl ? action.routingUrl : '') + item[action.routingField])"
+                                [ngClass]="checkActionDisable(item, action) ? 'disabled-link':''">
+                                <mat-icon>{{action.icon}}</mat-icon>
+                            </button>
+                        </ng-container>
+                        <button [actionCode]="configs.addActionCode" class="ara-icon-button" mat-icon-button
+                            matTooltip="{{'Common.Copy' | translate}}" (click)="copy(item)">
+                            <mat-icon svgIcon="mat_solid:file_copy"></mat-icon>
+                        </button>
+                        <button [actionCode]="configs.editActionCode" class="ara-icon-button" mat-icon-button
+                            matTooltip="{{'Common.Edit' | translate}}" (click)="edit(item)">
+                            <mat-icon svgIcon="heroicons_solid:pencil-alt"></mat-icon>
+                        </button>
+                        <button [actionCode]="configs.deleteActionCode" class="ara-icon-button" mat-icon-button
+                            matTooltip="{{'Common.Delete' | translate}}" (click)="delete(item)">
+                            <mat-icon svgIcon="heroicons_solid:trash"></mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                <mat-row *cdkRowDef="let item; columns: displayedColumns;" class="item" (click)="selectRow(item)"
+                    [class.accent]="selectedId == item.id"></mat-row>
+
+                <ng-container cdkColumnDef="hiddenLast">
+                    <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+                    <mat-cell *cdkCellDef="let item; let i = index;"></mat-cell>
+                </ng-container>
+            </mat-table>
+
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-paginator formFieldAppearance="outline" fxFlex *ngIf="!configs.noPaging" #paginator [length]="length" [pageSize]="pageSize"
+                    class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent ara-paginator"
+                    [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="true"
+                    (page)="pageEvent($event)">
+                </mat-paginator>
+
+                <mat-paginator class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent ara-paginator"
+                    fxFlex *ngIf="configs.noPaging" #paginator [length]="length" [hidePageSize]="true">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

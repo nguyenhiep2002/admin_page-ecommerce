@@ -1,0 +1,189 @@
+<div
+    class='sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent rounded-lg'>
+    <!-- Title -->
+    <!--    <div class='md:text-4xl sm:text-3xl xs:text-2xl font-extrabold tracking-tight pl-6' style="color: rgb(44 55 130);">Danh mục loại xét nghiệm</div>-->
+    <!-- Header -->
+    <div class='flex justify-between'>
+        <div class='flex justify-start items-center'>
+            <p class='md:text-2xl font-bold tracking-tight pl-6 mr-3' style='color: rgb(44 55 130);'>{{ 'TestType.TitleChild' | translate }}</p>
+        </div>
+        <div class='relative hedear flex flex-col sm:flex-row flex-0 sm:items-center sm:px-6 xs:py-4  '>
+            <div class='flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4'>
+                <!-- <button
+                    *ngIf='userInfo.userName === "rootadmin"'
+                    [disabled]='!showAddButton'
+                    mat-flat-button
+                    [color]="'primary'"
+                    class='mx-[7px] add-product-button mat-white-bg md:text-base sm:text-base xs:text-xs ml-2'
+                    (click)="syncService(customerCode)"
+
+                >
+                <mat-icon class='md:text-base sm:text-base xs:text-xs'
+                              [svgIcon]="'heroicons_outline:refresh'"></mat-icon>
+                    <span>{{ 'Client.Service' | translate }}</span>
+                </button> -->
+                <mat-form-field
+                    class='fuse-mat-dense fuse-mat-rounded md:min-w-64 xs:min-w-50 md:mr-[10px] sm:mr-[10px] xs:mr-[5px] md:text-base sm:text-base xs:text-xs'
+                    [subscriptSizing]="'dynamic'"
+                >
+                    <mat-icon
+                        class='icon-size-5'
+                        matPrefix
+                        [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                    <input
+                        [disabled]='!showAddButton'
+                        matInput
+                        [autocomplete]="'off'"
+                        placeholder="{{ 'Common.Search' | translate }}"
+                        (keyup)='search($event)'
+                        trim
+                        #inputSearch
+                    />
+                    <button
+                        [disabled]='!showAddButton'
+                        class='btn-close'
+                        *ngIf='inputSearch.value !== ""'
+                        matSuffix
+                        mat-icon-button
+                        type='button'
+                        (click)='inputSearch.value="";search($event)'
+                    >
+                        <mat-icon class='icon-size-5' [svgIcon]="'heroicons_solid:x'"></mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <button [disabled]='showAddButton' (click)='exportToExcel()'
+                        class='py-[6px] px-[9px] bg-slate-100 rounded-[5px] mx-[7px]'>
+                    <mat-icon svgIcon='heroicons_outline:download'></mat-icon>
+                </button>
+
+                <button
+                    *ngIf='userInfo.userName === "rootadmin"'
+                    [disabled]='!showAddButton'
+                    mat-flat-button
+                    [color]="'primary'"
+                    (click)='add()'
+                    class='add-product-button mat-white-bg md:text-base sm:text-base xs:text-xs ml-2'
+                >
+                    <mat-icon class='md:text-base sm:text-base xs:text-xs'
+                              [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                    <span>{{ 'Common.Add' | translate }}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class='flex overflow-y-auto px-6'>
+        <mat-table class='detail-table sm:mb-18 xs:mb-18' #table [dataSource]='dataSource' multiTemplateDataRows
+                   matSort>
+            <!-- checkbox Column -->
+            <ng-container cdkColumnDef='checkbox'>
+                <mat-header-cell *cdkHeaderCellDef>
+                    <!-- <mat-checkbox (change)='selectAll($event)'></mat-checkbox> -->
+                </mat-header-cell>
+                <mat-cell *cdkCellDef='let item'>
+                    <mat-checkbox [(ngModel)]='item.selected' (change)='checkboxChanged(item)'></mat-checkbox>
+                </mat-cell>
+            </ng-container>
+            <!-- ID Column -->
+            <ng-container cdkColumnDef='id'>
+                <mat-header-cell *cdkHeaderCellDef class='md:text-base sm:text-base xs:text-xs'>{{
+                    'Common.No' | translate
+                    }}</mat-header-cell>
+                <mat-cell *cdkCellDef='let item'>
+                    <p class='truncate md:text-base sm:text-base xs:text-xs'>{{ item.position }}</p>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container cdkColumnDef='code'>
+                <mat-header-cell *cdkHeaderCellDef class='md:text-base sm:text-base xs:text-xs' mat-sort-header>{{
+                    'TestType.Code' | translate
+                    }}</mat-header-cell>
+                <mat-cell *cdkCellDef='let item'>
+                    <p class='truncate md:text-base sm:text-base xs:text-xs' matTooltip='{{ item.code }}'>
+                        {{ item.code }}
+                    </p>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container cdkColumnDef='name'>
+                <mat-header-cell *cdkHeaderCellDef class='md:text-base sm:text-base xs:text-xs' mat-sort-header>{{
+                    'TestType.Name' | translate
+                    }}</mat-header-cell>
+                <mat-cell *cdkCellDef='let item'>
+                    <p class='truncate md:text-base sm:text-base xs:text-xs' matTooltip='{{ item.name }}'>
+                        {{ item.name }}
+                    </p>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container cdkColumnDef='description'>
+                <mat-header-cell *cdkHeaderCellDef class='md:text-base sm:text-base xs:text-xs'>{{
+                    'Common.Description' | translate
+                    }}</mat-header-cell>
+                <mat-cell *cdkCellDef='let item'>
+                    <p class='truncate md:text-base sm:text-base xs:text-xs' matTooltip='{{ item.desc }}'>
+                        {{ item.desc }}
+                    </p>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container cdkColumnDef='createdAt'>
+                <mat-header-cell *cdkHeaderCellDef class='md:text-base sm:text-base xs:text-xs'>{{
+                    'Common.CreatedAt' | translate
+                    }}</mat-header-cell>
+                <mat-cell *cdkCellDef='let item'>
+                    <p class='truncate md:text-base sm:text-base xs:text-xs' matTooltip='{{ item.createdAt }}'>
+                        {{ item.createdAt | date : 'dd/MM/yyyy'  }}
+                    </p>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef='actions' *ngIf='userInfo.userName === "rootadmin"'>
+                <mat-header-cell
+                    *cdkHeaderCellDef
+                    class='flex justify-center md:text-base sm:text-base xs:text-xs xs:justify-around'
+                >{{ 'Common.Action' | translate }}
+                </mat-header-cell>
+                <mat-cell *matCellDef='let item' class='xs:justify-around'>
+                    <button
+                        class='ara-icon-button'
+                        mat-icon-button
+                        matTooltip="{{ 'Common.Copy' | translate }}"
+                        (click)='copy(item)'
+                    >
+                        <mat-icon class=''>file_copy</mat-icon>
+                    </button>
+                    <button
+                        class='ara-icon-button'
+                        mat-icon-button
+                        matTooltip="{{ 'Common.Edit' | translate }}"
+                        (click)='edit(item)'
+                    >
+                        <mat-icon class=''>edit</mat-icon>
+                    </button>
+                    <button
+                        class='ara-icon-button'
+                        mat-icon-button
+                        matTooltip="{{ 'Common.Delete' | translate }}"
+                        (click)='delete(item)'
+                    >
+                        <mat-icon class=''>delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *cdkHeaderRowDef='displayedColumns; sticky: true'></mat-header-row>
+            <mat-row *cdkRowDef='let item; columns: displayedColumns'></mat-row>
+        </mat-table>
+        <div class=''>
+            <mat-paginator
+                class='absolute inset-x-0 bottom-0 border-b border-t border-b-0 z-10 bg-gray-50 dark:bg-transparent md:text-base sm:text-base xs:text-xs'
+                [pageSizeOptions]='[ 10,20,50,100]'
+                showFirstLastButtons
+                aria-label='Select page of periodic elements'>
+                >
+            </mat-paginator>
+        </div>
+    </div>
+</div>

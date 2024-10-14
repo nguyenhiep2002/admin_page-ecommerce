@@ -1,0 +1,92 @@
+<div class="rounded-lg m-5 bg-white w-full flex flex-col flex-auto">
+  <div class="table-container my-2 mx-4">
+    <tracking-search (onSearch)="onSearch($event)"></tracking-search>
+    <mat-table class="detail-table" [dataSource]="dataSource">
+      <!-- Trạng thái -->
+      <ng-container matColumnDef="statusEvent">
+        <mat-header-cell *matHeaderCellDef class="flex justify-center"></mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngSwitch]="element.statusEvent" class="flex justify-center">
+          <mat-icon *ngSwitchCase="1" matTooltip="Trạng thái thành công" svgIcon="sign-check" />
+          <mat-icon *ngSwitchCase="2" matTooltip="Trạng thái lỗi" svgIcon="sign-error-check" />
+          <mat-icon *ngSwitchCase="3" matTooltip="Trạng thái thành công nhưng có vấn đề" svgIcon="sign-waring-check" />
+        </mat-cell>
+      </ng-container>
+
+      <!-- Thiết bị & SID -->
+      <ng-container matColumnDef="deviceSid">
+        <mat-header-cell *matHeaderCellDef>Thiết bị & SID</mat-header-cell>
+        <mat-cell *matCellDef="let element" [matTooltip]="element?.deviceName + ' SID: ' + element?.sid">
+          <div>
+            <strong>SID: {{ element?.sid ?? '' }}</strong>
+            <div>
+              <i
+                ><small>Máy: {{ element?.deviceName ?? '' }}</small></i
+              >
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Ngày xảy ra sự kiện -->
+      <ng-container matColumnDef="dateTracking">
+        <mat-header-cell *matHeaderCellDef>Ngày giờ</mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+          [matTooltip]="element.date | date : 'dd/MM/yyyy hh:mm:ss.SSS'"
+          class="flex justify-center"
+        >
+          <div>
+            {{ element.date | date : 'hh:mm:ss.SSS' }}
+            <div>
+              <i
+                ><small>Ngày: {{ element.date | date : 'dd/MM/yyyy' }}</small></i
+              >
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Loại sự kiện -->
+      <ng-container matColumnDef="stateStatus">
+        <mat-header-cell *matHeaderCellDef>Loại sự kiện</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div
+            class="text-s font-medium me-2 px-2.5 py-0.5 rounded"
+            [style]="
+              getDisplayByStatus(element.stateStatus, 'bgColor') + getDisplayByStatus(element.stateStatus, 'textColor')
+            "
+          >
+            {{ getDisplayByStatus(element.stateStatus, 'name') }}
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Thông tin của sự kiện -->
+      <ng-container matColumnDef="desc">
+        <mat-header-cell *matHeaderCellDef>Thông tin của sự kiện</mat-header-cell>
+        <mat-cell *matCellDef="let element" [matTooltip]="element.desc"> {{ element.desc }} </mat-cell>
+      </ng-container>
+
+      <!-- Thao tác -->
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef class="flex justify-center">Thao tác</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="flex justify-center">
+          <button type="button" matTooltip="Xem dữ liệu thô" (click)="onViewRaw(element)" matSuffix mat-icon-button>
+            <mat-icon>pageview</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </div>
+  <mat-paginator
+    [length]="pagination.totalCount"
+    [pageSize]="pagination.pageSize"
+    [pageIndex]="pagination.pageIndex"
+    [pageSizeOptions]="pagination.pageSizeOptions"
+    (page)="onChangePage($event)"
+  >
+  </mat-paginator>
+</div>

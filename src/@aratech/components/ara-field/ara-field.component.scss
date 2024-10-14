@@ -1,0 +1,35 @@
+:host {
+    .color-suffix {
+        ::ng-deep{
+            .mat-icon {
+                line-height: inherit; 
+            }
+        }
+    }
+
+    .mat-form-field {
+        ::ng-deep{
+            .mat-form-field-infix {
+                width: auto !important;
+            }
+        }
+    }
+
+    .opt-item {
+        height: unset;
+        min-height: 40px;
+        line-height: unset;
+        padding: 8px 16px;
+    
+        ::ng-deep {
+            .mat-option-text {
+                height: unset;
+                white-space: normal;
+            }
+        }
+    }
+
+    .form-control {
+        width: 100%;
+    }
+}

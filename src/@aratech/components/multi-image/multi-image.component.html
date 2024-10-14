@@ -1,0 +1,22 @@
+<div class="multi-file-wrapper">
+  <div class="multi-file-header">
+    <div class="multi-file-title mr-[10px]">{{ label | translate }}</div>
+    <button mat-icon-button color="accent" (click)="chooseFile()" [matTooltip]="'Common.AddFile' | translate">
+      <mat-icon svgIcon="attach_file"></mat-icon>
+    </button>
+  </div>
+  <div class="multi-file-body flex flex-col" *ngIf="files && files.length > 0">
+    <div class="file-item flex h-fit w-fit max-w-[200px] mb-[10px] items-center" *ngFor="let file of files">
+      <img
+        [src]="file.thumb"
+        [alt]="file.name"
+        class="h-[100px] w-[150px] p-[12px] border border-[#d9d9d9] border-solid object-contain"
+        [matTooltip]="file.name"
+      />
+      <button mat-icon-button color="warn" (click)="clear(file)" [matTooltip]="'Common.Delete' | translate">
+        <mat-icon [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<input #fileInput type="file" [accept]="accept" style="display: none" (change)="fileChange($event)" multiple />

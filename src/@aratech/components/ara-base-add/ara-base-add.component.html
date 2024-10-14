@@ -1,0 +1,27 @@
+<div class="page-layout carded fullwidth inner-scroll content-layout h-100-p body-background">
+    <div class="center">
+        <div class="content-card mat-white-bg">
+            <div class="header" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+                fxLayoutAlign.gt-xs="space-between center">
+                <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                    <!-- <button *ngIf="useBackButton" class="mr-0 mr-sm-16" mat-icon-button (click)="back()">
+                        <mat-icon>arrow_back</mat-icon>
+                    </button>
+                    <ng-container *ngIf="!useBackButton">
+                        <mat-icon class="logo-icon mr-16" *fuseIfOnDom>
+                            {{ icon }}</mat-icon>
+                    </ng-container> -->
+                    <span class="logo-text h2 fw-600" *fuseIfOnDom>
+                        {{headerTitle | translate}} <br /><strong>{{subTitle | translate}}</strong>
+                    </span>
+                </div>
+                <div fxFlex.gt-xs="1 0 auto">
+                    <ng-content select="[header]"></ng-content>
+                </div>
+            </div>
+            <div class="content" fxFlex fxLayout="column" fusePerfectScrollbar>
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

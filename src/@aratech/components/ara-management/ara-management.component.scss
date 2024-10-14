@@ -1,0 +1,59 @@
+//@import "src/@fuse/scss/fuse";
+
+:host {
+  .content {
+    padding: 0 15px 15px 15px;
+  }
+
+  .ara-table {
+    // flex-grow: 1;
+    // overflow: auto;
+    // -webkit-overflow-scrolling: touch;
+
+    .mat-mdc-header-row .mat-mdc-header-cell {
+      background-color: #f8fafc;
+    }
+    .mat-header-row {
+      min-height: 44px;
+    }
+
+    .cdk-row {
+      height: 60px;
+    }
+
+    .mat-header-cell {
+      text-align: center;
+    }
+
+    .cdk-cell {
+      min-width: 0;
+      display: flex;
+
+      p,
+      div {
+        width: 100%;
+      }
+    }
+
+    .cdk-column-id {
+      flex: 0 1 100px;
+      place-content: start;
+    }
+
+    .cdk-column-hiddenFirst,
+    .cdk-column-hiddenLast {
+      flex: 0 1 0px;
+      padding: 0;
+    }
+  }
+
+  .disabled-link {
+    pointer-events: none;
+    opacity: 0.3;
+    text-decoration: none;
+  }
+
+  .btn-action:disabled .mat-icon {
+    opacity: 0.3;
+  }
+}

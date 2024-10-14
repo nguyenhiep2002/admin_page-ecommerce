@@ -1,0 +1,39 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{ data.title }}</span>
+            <button mat-button class="mat-icon-button" style="float: right;" (click)="cancel()"
+                aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-16 m-0" fusePerfectScrollbar style="width: 500px">
+        <div fxFlex fxLayout="column">
+            <ara-autocomplete ngDefaultControl class="w-100-p" [label]="'Chọn người dùng'"
+                [(ngModel)]="selectedUser" [service]="branchUserService" [displayField]="'name'"
+                [valueField]="'id'" (modelChange)="selectUser($event)" [getDisplayText]="getDisplayText">
+            </ara-autocomplete>
+
+            <h2 fxFlex class="mt-24">{{'Người dùng thuộc chi nhánh: ' + branch.name }}</h2>
+            <div class="list-users mat-card mat-elevation-z2 h-200 p-8" fxLayout="row wrap" fxLayoutAlign="start start" fusePerfectScrollbar>                
+                <div fxLayout="row wrap" fxLayoutAlign="start start">
+                    <div class="user-item mr-24" fxLayout="row" fxLayoutAlign="start center" *ngFor="let user of users">
+                        <p class="mr-4">{{user.name}}</p>
+                        <button class="ara-icon-button" mat-icon-button (click)="removeUser(user)"
+                                [matTooltip]="'Common.Delete' | translate">
+                            <mat-icon class="btn-clear">clear</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center">
+        <button mat-button (click)="save()" class="mat-raised-button mat-accent"
+            color="accent">{{'Common.Save' | translate}}</button>
+        <button mat-button (click)="cancel()" class="mat-raised-button mat-warn"
+            color="warn">{{'Common.Cancel' | translate}}</button>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle [color]="'primary'" class="m-0">
+        <div class="flex flex-row flex-auto">
+            <span class="title dialog-title flex flex-auto items-center justify-start">{{options.title }}</span>
+            <button mat-button class="mat-icon-button btn-header-close flex items-center justify-end p-0" tabindex="-1" (click)="dialogRef.close()"
+                aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="m-0" [ngStyle]="{'width': options.width, 'min-width': options.minWidth }">
+        <form fxLayout="column" class="pt-6 content-group gap-x-4 grid grid-cols-{{ options.columns ? options.columns : 1 }}" name="form"
+            [formGroup]="form">
+                <ng-container *ngFor="let field of fields">
+                    <ara-field fxFlex [options]="field" [parentGroup]="form" [(model)]="item" 
+                    class="{{field.fitRowWidth ? 'ara-modal-field-full col-span-' + (options.columns ? options.columns : 1) : 'ara-modal-field'}}"></ara-field>
+                </ng-container>
+        </form>
+    </div>
+    <div mat-dialog-actions class="m-0 pb-6 pt-0 items-center justify-center" fxLayout="row" fxLayoutAlign="center">
+        <button [tabIndex]="fields.length + 2" (click)="save()" [disabled]="!form.valid"
+            mat-flat-button
+            [color]="'primary'">
+            <span class="color-white">{{'Common.Save' | translate}}</span>
+        </button>
+
+        <button (click)="cancel()" [tabIndex]="fields.length + 1"
+            mat-flat-button
+            [color]="'warn'">{{'Common.Back' | translate}}</button>
+    </div>
+</div>

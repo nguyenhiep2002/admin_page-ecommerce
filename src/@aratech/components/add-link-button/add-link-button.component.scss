@@ -1,0 +1,22 @@
+:host {
+    cursor: pointer;
+    
+    .mat-icon {
+        background-color: #0682DC;
+        color: white !important;
+        border-radius: 14px;
+        font-size: 20px;
+        height: 20px;
+        min-height: 20px;
+        width: 20px;
+        min-width: 20px;
+        line-height: 20px;
+    }
+
+    .title {
+        color: #0682DC;
+        text-decoration-line: underline;
+        font-size: 12px;
+        line-height: 20px;
+    }
+}

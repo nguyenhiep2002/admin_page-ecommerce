@@ -1,0 +1,84 @@
+
+:host {
+    .detail-table {
+        @media screen and (min-width: 768px) {
+            border-radius: 8px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+            overflow: auto;
+            width: 100%;
+
+            mat-header-row,
+            mat-header-cell {
+                min-height: 25px !important;
+            }
+
+            mat-row,
+            mat-cell {
+                min-height: 30px !important;
+            }
+
+            .mat-column-statusEvent {
+                white-space: nowrap !important;
+                width: fit-content !important;
+                max-width: 10px;
+                text-overflow: ellipsis !important;
+            }
+
+            .mat-column-action {
+                white-space: nowrap !important;
+                width: fit-content !important;
+                max-width: 80px;
+                text-overflow: ellipsis !important;
+            }
+
+            .mat-column-dateTracking {
+                white-space: nowrap !important;
+                width: fit-content !important;
+                max-width: 110px;
+                text-overflow: ellipsis !important;
+            }
+
+            .mat-column-deviceSid {
+                white-space: nowrap !important;
+                width: fit-content !important;
+                max-width: 110px;
+                text-overflow: ellipsis !important;
+            }
+
+            .mat-column-stateStatus {
+                white-space: nowrap !important;
+                width: fit-content !important;
+                max-width: 245px;
+                text-overflow: ellipsis !important;
+            }
+
+            .mat-column-desc {
+                white-space: nowrap !important;
+                width: fit-content !important;
+                text-overflow: ellipsis !important;
+            }
+
+            .mat-mdc-row {
+                &.selected-row .mat-mdc-cell {
+                    background-color: #f6faff;
+                }
+            }
+
+            .mat-mdc-row:hover .mat-mdc-cell {
+                background-color: #f6faff;
+            }
+
+            .mat-mdc-header-row .mat-mdc-header-cell {
+                background-color: #F4F7FF;
+            }
+        }
+    }
+
+    .table-container {
+        display: flex;
+        flex-flow: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: calc(100vh - 183px);
+    }
+}

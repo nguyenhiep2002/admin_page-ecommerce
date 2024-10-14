@@ -1,0 +1,70 @@
+//@import "src/@fuse/scss/fuse";
+
+:host {
+    .dialog-content-wrapper .mat-dialog-title {
+        height: 50px !important;
+    }
+
+    #searchBox {
+        padding: 0 24px 0 24px;
+    }
+
+    .mat-dialog-content {
+        padding: 16px 0 0 0;
+    }
+
+    .content-card {
+        height: 350px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ara-table {
+        flex: 1 1 auto;
+        border: 1px solid rgba(0, 0, 0, .12);
+        overflow: auto;
+
+        .mat-header-row {
+            min-height: 42px;
+            height: 42px;
+        }
+
+        .mat-row {
+            height: 40px;
+            min-height: 40px;            
+
+            &:hover {
+                background-color: #f9f9f9;
+            }
+
+            &.selected-row, &.selected-row:hover {
+                background-color: deepskyblue;
+            }
+        }
+
+        .mat-cell {
+            min-width: 0;
+            display: flex;
+
+            p, div {
+                width: 100%;
+            }
+        }
+
+        .mat-column-id {
+            flex: 0 1 40px;
+        }
+
+        .mat-column-hiddenFirst, .mat-column-hiddenLast {
+            flex: 0 1 0px;
+        }
+    }
+
+    .mat-paginator {
+        width: 100%;
+    }
+
+    .mat-dialog-actions {
+        padding: 4px 0 16px 0;
+    }
+}

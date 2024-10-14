@@ -1,0 +1,8 @@
+<div class="flex w-[400px] absolute bg-[#fffbeb] rounded-2xl border border-[#fbbf24] shadow-xl">
+  <span matSnackBarLabel class="text-[#b92a2a]"> {{message}} </span>
+  <span matSnackBarActions class="mr-[16px]">
+    <button mat-icon-button (click)="snackBarRef.dismissWithAction()">
+      <mat-icon class="text-[#d97706] icon-size-5" [svgIcon]="'mat_outline:warning_amber'"></mat-icon>
+    </button>
+  </span>
+</div>

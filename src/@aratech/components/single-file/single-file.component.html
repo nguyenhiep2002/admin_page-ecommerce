@@ -1,0 +1,16 @@
+<!-- custom file input -->
+<div class="w-100-p">
+  <div class="btn-file" style="display: inline-flex">
+    <button *ngIf="value" class="mr-8" mat-mini-fab color="warn" (click)="clear()" matTooltip="Xóa File">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-mini-fab color="accent" (click)="chooseFile()" matTooltip="Chọn File">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="w-100-p h-100-p" *ngFor="let file of files">
+  <!-- <fa-icon *ngIf="file.extension == 'file'" [icon]="fileIcon" class="file-icon"></fa-icon> -->
+  <a class="ml-4" href="javascript:void(0)" (click)="viewFile(value)">{{ filename }}</a>
+</div>
+<input #fileInput type="file" [accept]="accept" style="display: none" (change)="fileChange($event)" />

@@ -1,0 +1,37 @@
+<div class="w-full" *ngIf="group" [formGroup]="group" fxLayout="row" fxLayoutAlign="start center">
+    <mat-form-field class="form-control" appearance="outline">
+        <mat-label>{{label | translate}}</mat-label>
+        <input matInput [tabIndex]="tabIndex" (click)="openDatePicker(datePickerMonth1)" [(ngModel)]="myValue" [required]="required" (dateChange)="change($event, datePickerMonth1)" formControlName="{{controlName}}" dateInput [matDatepicker]="datePickerMonth1"
+            readonly="{{readOnly}}" [min]="min" [max]="max" />
+        <button mat-button stop-propagation [disabled]="readOnly" matSuffix mat-icon-button (click)="openDatePicker(datePickerMonth1)">
+            <mat-icon>calendar_today</mat-icon>
+        </button>
+        <button mat-button stop-propagation class="btn-close" *ngIf="!readOnly && ngModel" matSuffix mat-icon-button (click)="clear(datePickerMonth1)">
+            <mat-icon>close</mat-icon>
+        </button>
+        <!-- <mat-datepicker-toggle [disabled]="readOnly" matSuffix [for]="datePickerMonth1"></mat-datepicker-toggle> -->
+        <mat-datepicker #datePickerMonth1 startView="multi-year" (yearSelected)="chosenYearHandler($event, datePickerMonth1)">
+        </mat-datepicker>
+
+        <mat-error *ngIf="errors.required">
+            <span>{{ ('Category.Msg.Required' | translate) | stringFormat:label}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>
+
+<div class="w-full" *ngIf="!group" fxLayout="row" fxLayoutAlign="start center">
+    <mat-form-field class="form-control" appearance="outline">
+        <mat-label>{{label | translate}}</mat-label>
+        <input matInput [tabIndex]="tabIndex" [(ngModel)]="myValue" (click)="openDatePicker(datePickerMonth2)" [required]="required" (dateChange)="change($event, datePickerMonth2)" [min]="min" [max]="max" dateInput [matDatepicker]="datePickerMonth2" readonly="{{readOnly}}"
+        />
+        <button mat-button stop-propagation [disabled]="readOnly" matSuffix mat-icon-button (click)="openDatePicker(datePickerMonth2)">
+            <mat-icon>calendar_today</mat-icon>
+        </button>
+        <button mat-button stop-propagation class="btn-close" *ngIf="!readOnly && ngModel" matSuffix mat-icon-button (click)="clear(datePickerMonth2)">
+            <mat-icon>close</mat-icon>
+        </button>
+        <!-- <mat-datepicker-toggle [disabled]="readOnly" matSuffix [for]="datePickerMonth2"></mat-datepicker-toggle> -->
+        <mat-datepicker #datePickerMonth2 startView="multi-year" (yearSelected)="chosenYearHandler($event, datePickerMonth2)">
+        </mat-datepicker>
+    </mat-form-field>
+</div>

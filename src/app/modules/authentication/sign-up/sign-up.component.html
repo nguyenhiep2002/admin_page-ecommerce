@@ -1,0 +1,65 @@
+<div id="login" fxLayout="row" fxLayoutAlign="start" >
+
+    <div id="login-intro" fxFlex fxHide fxShow.gt-xs>
+
+        <div class="description" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
+        </div>
+
+    </div>
+
+    <div class="bg-img" fxLayout="column" fxLayoutAlign="center center">
+        <img id="logo-img" src="../../../../assets/images/logos/rsz_aratech-logo-picture-256.png" alt="">
+        <img id="text-img" src="../../../../assets/images/logos/aratech-logo-Text-256.png" alt="">
+    </div>
+
+    <div id="login-form-wrapper" fusePerfectScrollbar *fuseIfOnDom
+         [@animate]="{value:'*',params:{delay:'300ms',x:'100%'}}">
+
+        <div id="login-form">
+
+            <div class="title">Thông tin đăng kí</div>
+
+            <form name="loginForm" [formGroup]="signUpForm"  (ngSubmit)="save()" novalidate>
+                <mat-form-field >
+                    <input matInput placeholder="Tên đơn vị" formControlName="name" [(ngModel)]="item.name" required>
+                    <mat-error *ngIf="signUpFormErrors.name.required">
+                        Bạn phải nhập tên đơn vị
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field >
+                    <input matInput placeholder="Email" formControlName="email" [(ngModel)]="item.email" required>
+                    <mat-error *ngIf="signUpFormErrors.email.required">
+                        Bạn phải nhập email
+                    </mat-error>
+                    <mat-error *ngIf="signUpFormErrors.email.pattern">
+                        Đây không phải một email
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field >
+                    <input matInput placeholder="Số điện thoại" formControlName="phone" [(ngModel)]="item.phone">
+                </mat-form-field>
+                <mat-form-field >
+                    <input matInput placeholder="Địa chỉ" formControlName="adress" [(ngModel)]="item.address">
+                </mat-form-field>
+
+                <!-- <mat-form-field >
+                    <input matInput type="password" placeholder="Mật khẩu" formControlName="password">
+                    <mat-error *ngIf="signUpFormErrors.password.required">
+                        Bạn phải nhập mật khẩu
+                    </mat-error>
+                </mat-form-field> -->
+
+                <button type="submit" mat-raised-button color="accent" class="submit-button" aria-label="Đăng kí" [disabled]="signUpForm.invalid">
+                    Đăng kí
+                </button>
+
+            </form>
+            <div>
+                <a style="margin-top: 5px; font-weight: 500;" [routerLink]="'/authentication/login'">
+                    {{'Authentication.BackToLogin' | translate}}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

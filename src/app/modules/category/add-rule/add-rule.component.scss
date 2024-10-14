@@ -1,0 +1,50 @@
+@import "src/app/shared/style";
+
+:host {
+    .rules-config {
+        .mat-icon {
+            color: #2D323E;
+        }
+    }
+
+    .mat-radio-button::ng-deep {
+        .mat-radio-label {
+            width: auto;
+        }
+    }    
+    .rules-config {
+        padding: 16px;
+        flex-grow: 1;
+
+        span {
+            font-size: 16px;
+            font-family: Roboto, "Helvetica Neue", sans-serif;
+        }
+
+        .rule-title {
+            width: 90px;
+            margin-left: 10px;
+        }
+
+        ::ng-deep {
+            .mat-radio-label-content {
+                padding-left: 0;
+            }
+        }
+
+        .mat-fab {
+            height: 34px;
+            width: 34px;
+            background-color: white !important;
+            box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+
+            &:hover {
+                box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+            }
+
+            ::ng-deep .mat-button-wrapper {
+                padding: 0;
+            }
+        }
+    }                                                          
+}

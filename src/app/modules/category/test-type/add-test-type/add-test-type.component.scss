@@ -1,0 +1,6 @@
+.dialog-content-wrapper{
+    .mat-mdc-dialog-content {
+        max-height: 100vh;
+        height: calc(100vh - 226px);
+    }
+}

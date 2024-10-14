@@ -1,0 +1,44 @@
+<div fxLayout="row" fxLayoutAlign="start center" class="h2 p-12 ara-tree-title" *ngIf="title && title != ''" (click)="change({})">
+    <div fxFlex fxLayout="row" fxLayoutAlign="start center" style="cursor: pointer;">
+        <img style="width: 24px; height: 24px; margin-right: 5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAABuwAAAbsBOuzj4gAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACeSURBVEiJ7VRBCoAwDHPiw0R/tZ67ZymI/6oXPSh1SwQVxBxH25A1TVX9KCAgRSml0czaXWMIQ4yxL/XWCMFx+PrWIb0QwQYRCSICqb5EcAUNU6yqxhKgCmbnbWLJilBVY1XcvgPXEZ7vi4NO7sJVwA5fe9y7yLoI9XxuL8/ugM0cpH6ngM0cpN79IjZzcvXvZBF7rYyL2Mx5JqO+jQXYElgazAfKxAAAAABJRU5ErkJggg==">
+        {{title}}
+    </div>
+    
+    <button *ngIf="showAddButton" matTooltip="{{addButtonTitle}}" fxFlex="36px" fxLayoutAlign="end center" style="cursor: pointer;" (click)="add()">
+        <mat-icon class="mat-icon-rtl-mirror add-button">add</mat-icon>
+    </button>
+</div>
+<div style="height: stretch" fusePerfectScrollbar>
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        
+        <mat-tree-node class="nav" matTreeNodePaddingIndent="20" *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding [ngClass]="{'accent':selected[idField] === node.item[idField] }">
+            <button mat-icon-button class="tree-expand-button" disabled></button>
+            <div fxFlex class="tree-item" aria-label="inbox">
+                <span class="tree-link" (click)="change(node.item)" [ngClass]="{'active':selected[idField] === node.item[idField] }">
+                    <span class="title" matTooltip="{{node.item[textField]}}">{{node.item[textField]}}</span>
+                </span>
+                <div class="hover-button-container"  >
+                    <button *ngIf="showEditButton" (click)="edit(node.item)" mat-icon-button matTooltip="{{'Common.Edit' | translate}}">
+                        <mat-icon class="mat-icon-rtl-mirror">edit</mat-icon>
+                    </button>
+                    <button *ngIf="showDeleteButton" (click)="delete(node.item)" mat-icon-button matTooltip="{{'Common.Delete' | translate}}">
+                        <mat-icon class="mat-icon-rtl-mirror">delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-tree-node>
+
+        <mat-tree-node class="nav" matTreeNodePaddingIndent="20" *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding [ngClass]="{'accent':selected[idField] === node.item[idField] }">
+            <button mat-icon-button class="tree-expand-button" matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
+                <mat-icon class="mat-icon-rtl-mirror">
+                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+            </button>
+            <div fxFlex="1 1 100%" class="tree-item" aria-label="inbox">
+                <span class="tree-link"   (click)="change(node.item)" [ngClass]="{'active':selected[idField] === node.item[idField] }">                    
+                    <span class="title" matTooltip="{{node.item[textField]}}">{{node.item[textField]}}</span>
+                </span>
+            </div>
+        </mat-tree-node>
+    </mat-tree>
+</div>

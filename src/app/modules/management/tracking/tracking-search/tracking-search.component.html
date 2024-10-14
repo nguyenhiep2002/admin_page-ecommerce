@@ -1,0 +1,65 @@
+<form [formGroup]="formGroup" (submit)="onSubmit(formGroup.value)" class="flex w-full">
+  <div class="w-full grow grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-1 gap-3">
+    <ara-datetime-v2
+      formControlName="dateTracking"
+      class="w-full"
+      placeholder=" Chọn ngày theo dõi"
+      label="Ngày theo dõi"
+    />
+    <div>
+      <div class="flex items-center text-md text-hint">Khoảng giờ theo dõi</div>
+      <div class="flex gap-1 items-center overflow-auto no-scrollbar">
+        <ara-time formControlName="timeStart" class="w-full" />
+        <span class="mb-5">=></span>
+        <ara-time formControlName="timeEnd" class="w-full" />
+      </div>
+    </div>
+    <div>
+      <div class="flex items-center text-md text-hint">SID</div>
+      <mat-form-field class="w-full fuse-mat-dense fuse-mat-rounded">
+        <input type="text" formControlName="sid" placeholder="Nhập SID theo dõi" matInput #inputSID trim />
+        <button
+          class="btn-close"
+          type="button"
+          stop-propagation
+          *ngIf="inputSID.value"
+          matSuffix
+          mat-icon-button
+          [disabled]="!isUser"
+          (click)="inputSID.value = ''"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <ara-autocomplete-v2
+      formControlName="deviceId"
+      label="Thiết bị"
+      [displayField]="['name', 'code']"
+      [items]="itemsDevices"
+    />
+    <ara-autocomplete-v2
+      formControlName="trackingType"
+      label="Loại sự kiện"
+      [items]="itemsTrackingType"
+      panelWidth="fit-content"
+      [dynamicOptionTemplate]="customOptionTrackingType"
+    />
+    <ara-autocomplete-v2 formControlName="status" label="Trạng thái" [items]="itemsStatus" />
+  </div>
+  <div class="ml-2 grow-0">
+    <br />
+    <button mat-flat-button class="grow-0" type="submit" [color]="'primary'" [disabled]="!formGroup.valid">
+      <mat-icon>track_changes</mat-icon>
+      <span>Theo dõi</span>
+    </button>
+  </div>
+</form>
+<ng-template #customOptionTrackingType let-item>
+  <div
+    class="text-s font-medium me-2 px-2.5 py-0.5 rounded"
+    [style]="getDisplayByStatus(item.id, 'bgColor') + getDisplayByStatus(item.id, 'textColor')"
+  >
+    {{ getDisplayByStatus(item.id, 'name') }}
+  </div>
+</ng-template>

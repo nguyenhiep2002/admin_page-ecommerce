@@ -1,0 +1,58 @@
+<div class="flex items-center text-md text-hint" *ngIf="label">{{ label }}</div>
+<mat-form-field class="w-full fuse-mat-dense fuse-mat-rounded form-control">
+  <input
+    type="text"
+    [placeholder]="displayPlaceholder()"
+    aria-label="Autocomplete"
+    matInput
+    trim
+    #inputAutoComplete
+    [disabled]="disabled"
+    [value]="value"
+    (keydown)="inputChange($event)"
+    [matAutocomplete]="auto"
+  />
+  <mat-autocomplete #auto="matAutocomplete" [panelWidth]="panelWidth" [displayWith]="displayWith" (optionSelected)="optionSelected($event)">
+    <mat-option *ngFor="let item of items" [value]="item">
+      <ng-template #defaultOptionTemplate>
+        <div *ngIf="displayField.length > 1">
+          <p>{{ item[displayField[0]] }}</p>
+          <small
+            ><i>{{ item[displayField[1]] }}</i></small
+          >
+        </div>
+        <div *ngIf="displayField.length === 1">
+          <p>{{ item[displayField[0]] }}</p>
+        </div>
+      </ng-template>
+      <ng-container
+        [ngTemplateOutlet]="dynamicOptionTemplate || defaultOptionTemplate"
+        [ngTemplateOutletContext]="{ $implicit: item }"
+      ></ng-container>
+    </mat-option>
+  </mat-autocomplete>
+  <button
+    type="button"
+    matTooltip="Làm mới dữ liệu"
+    *ngIf="!!refreshFn"
+    stop-propagation
+    matSuffix
+    mat-icon-button
+    [disabled]="disabled"
+    (click)="refreshFn()"
+  >
+    <mat-icon>refresh</mat-icon>
+  </button>
+  <button
+    class="btn-close"
+    type="button"
+    stop-propagation
+    *ngIf="inputAutoComplete.value"
+    matSuffix
+    mat-icon-button
+    [disabled]="disabled"
+    (click)="clear(inputAutoComplete, auto)"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>

@@ -1,0 +1,98 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{options.title | translate}}<strong *ngIf="subTitle" >&nbsp;{{'- ' + subTitle}}</strong></span>
+            <button mat-button class="mat-icon-button" tabindex="-1" (click)="dialogRef.close()"
+                aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="m-0" [ngStyle]="{'width': options.width, 'min-width': options.minWidth }">
+        <div class="header" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+            fxLayoutAlign.gt-xs="space-between center">
+            <!-- SEARCH -->
+            <div id="searchBox" class="search-input-wrapper mx-12 m-md-0" fxFlex="1 0 auto" fxLayout="row"
+                fxLayoutAlign="center center">
+                <label for="search" class="mr-8">
+                    <mat-icon class="secondary-text">search</mat-icon>
+                </label>
+                <mat-form-field floatPlaceholder="never" class="w-80-p">
+                    <input id="search" [(ngModel)]="searchText" matInput #filter trim="blur" tabindex="1"
+                        placeholder="{{'Common.Search' | translate}}" (keypress)="search($event.keyCode)">
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- / HEADER -->
+
+        <div class="content-card mat-white-bg mt-8">
+            <mat-table class="ara-table" #table [dataSource]="dataSource" matSort [@animateStagger]="{value:'50'}">
+                <ng-container cdkColumnDef="hiddenFirst">
+                    <mat-header-cell *cdkHeaderCellDef>{{'Common.No' | translate}}</mat-header-cell>
+                    <mat-cell *cdkCellDef="let item; let i = index;">
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container cdkColumnDef="id">
+                    <mat-header-cell *cdkHeaderCellDef>{{'Common.No' | translate}}</mat-header-cell>
+                    <mat-cell *cdkCellDef="let item; let i = index;">
+                        <p class="text-truncate">{{(pageIndex * pageSize) + i + 1}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container *ngFor="let field of configs.fields" cdkColumnDef="{{field.name}}">
+                    <mat-header-cell *cdkHeaderCellDef fxLayoutAlign="center center" class="pr-16">
+                        <div *ngIf="field.type == 'checkbox'" fxFlex fxLayoutAlign="center center">
+                            {{ field.title | translate}}
+                        </div>
+                        <div *ngIf="field.type != 'checkbox'" fxFlex fxLayoutAlign="start center">
+                            {{ field.title | translate}}
+                        </div>
+                    </mat-header-cell>
+
+                    <mat-cell *cdkCellDef="let item" [ngSwitch]="field.type" class="pr-16">
+                        <div *ngSwitchCase="'combobox'">
+                            <p *ngIf="field.objectField && item[field.objectField]" class="text-truncate"
+                                matTooltip="{{item[field.objectField][field.displayField]}}">
+                                {{item[field.objectField][field.displayField]}}
+                            </p>
+                            <p *ngIf="!field.objectField" class="text-truncate" matTooltip="{{item[field.name]}}">
+                                {{item[field.name]}}
+                            </p>
+                        </div>
+
+                        <div *ngSwitchCase="'checkbox'" fxFlex fxLayoutAlign="center center">
+                            <mat-icon *ngIf="item[field.name] == true">check_box</mat-icon>
+                            <mat-icon *ngIf="item[field.name] == false">check_box_outline_blank</mat-icon>
+                        </div>
+                        <p *ngSwitchDefault class="text-truncate" matTooltip="{{item[field.name]}}">
+                            {{item[field.name]}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                <mat-row *cdkRowDef="let item; columns: displayedColumns;" (click)="rowClick(item)" 
+                    [ngClass]="item == selectedItem ? 'selected-row' : ''"
+                ></mat-row>
+                
+            </mat-table>
+            <div fxLayout="row">
+                <mat-paginator *ngIf="!configs.noPaging" #paginator [length]="length" [pageSize]="pageSize"
+                    [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="true"
+                    (page)="pageEvent($event)">
+                </mat-paginator>
+
+                <mat-paginator *ngIf="configs.noPaging" #paginator [length]="length" [hidePageSize]="true">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="m-0" fxLayout="row" fxLayoutAlign="center">
+        <button mat-button (click)="select()" tabindex="2" class="mat-raised-button mat-accent"
+            color="accent">{{'Common.Select' | translate}}</button>
+        <button mat-button (click)="cancel()" tabindex="3" class="mat-raised-button mat-warn"
+            color="warn">{{'Common.Cancel' | translate}}</button>
+    </div>
+</div>

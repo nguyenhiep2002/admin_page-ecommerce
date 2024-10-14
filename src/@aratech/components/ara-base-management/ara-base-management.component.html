@@ -1,0 +1,52 @@
+<div class="page-layout carded fullwidth inner-scroll content-layout h-100-p body-background">
+    <div class="center">
+        <div class="content-card mat-white-bg">
+            <div class="header" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+                <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                    <!-- <button *ngIf="useBackButton" class="mr-0 mr-sm-16" mat-icon-button (click)="back()">
+                        <mat-icon>arrow_back</mat-icon>
+                    </button>
+                    <ng-container *ngIf="!useBackButton">
+                        <mat-icon class="logo-icon mr-16" *fuseIfOnDom>
+                            {{ icon ? icon : 'apps' }}</mat-icon>
+                    </ng-container> -->
+                    <mat-icon *ngIf="return" matTooltip="Quay lại" style="cursor: pointer" class="btn-permission" (click)="back()">reply</mat-icon>
+                    <span class="logo-text h2 fw-600" *fuseIfOnDom>
+                        {{headerTitle | translate}} <br /><strong>{{subTitle | translate}}</strong>
+                    </span>
+                </div>
+                <!-- / APP TITLE -->
+                <div fxFlex.gt-xs="1 0 auto">
+                    <ng-content select="[header]"></ng-content>
+                </div>
+                <!-- SEARCH -->
+                <!-- <div class="mx-7 w-212 ">
+                    
+                    <ara-year ngDefaultControl label="Năm kế hoạch: " class="no-validate-control mat-white-bg" [(ngModel)]="yearPlan" [max]="limitFutureYear">
+                    </ara-year>
+                </div> -->
+                <div class="search-wrapper mx-8 w-300">
+                    <div class="search" fxFlex fxLayout="row" fxLayoutAlign="end center">
+                        <mat-icon>search</mat-icon>
+                        <input id="search" [(ngModel)]="searchText" (ngModelChange)="searchChange()" matInput #filter trim="blur" placeholder="{{'Common.Search' | translate}}" (keypress)="search($event.keyCode)">
+                    </div>
+                </div>
+                <button *ngIf="showAdvancedButton" mat-raised-button (click)="showAdvancedSearch()" class="btn-accent accent mt-sm-0 mr-8 btn-show-advanced-search" matTooltip="{{'Common.AdvancedSearch' | translate}}" color="accent">
+                    <mat-icon>filter_list</mat-icon>
+                </button>
+                <button mat-raised-button (click)="search(13)" class="btn-accent accent mt-sm-0 mr-8 px-12" color="accent">
+                    <mat-icon>search</mat-icon>
+                    <span class="lineheight-0">{{'Common.Search' | translate}}</span>
+                </button>
+
+                <button *ngIf="showButtonAdd" [actionCode]="actionCode" mat-raised-button (click)="add()" class="btn-accent accent mt-sm-0 px-12" color="accent">
+                    <mat-icon>add_box</mat-icon>
+                    <span class="lineheight-0">{{'Common.Add3' | translate}}</span>
+                </button>
+            </div>
+            <div class="content" fxLayout="column">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

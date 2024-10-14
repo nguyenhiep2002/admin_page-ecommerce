@@ -1,0 +1,157 @@
+<!-- <div class="w-full" *ngIf="group" [formGroup]="group">
+    <mat-form-field class="w-full">
+        <mat-label>{{label | translate}}</mat-label>
+        <input *ngIf="!showFullDecimal" matInput [tabIndex]="tabIndex" name="{{name}}" formControlName="{{controlName}}"
+            [required]="required" readonly="{{readOnly}}" [ngClass]="'t-a-' + align"
+            (ngModelChange)="change($event)" [ngModel]="myModel" (blur)="onBlurInput()" (focus)="onFocusInput()"
+            mask="{{'separator.' + precision}}" thousandSeparator="," />
+
+        <input *ngIf="showFullDecimal" matInput [tabIndex]="tabIndex" name="{{name}}" formControlName="{{controlName}}"
+            [required]="required" readonly="{{readOnly}}" [ngClass]="'t-a-' + align"
+            (ngModelChange)="change($event)" [ngModel]="myModel" (blur)="onBlurInput()" (focus)="onFocusInput()"
+            currencyMask [options]="{ precision: precision, prefix: '', inputMode: inputMode }" />
+
+        <mat-error *ngIf="errors.required">
+            <span>{{ ('Category.Msg.Required' | translate) | stringFormat:label}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.minlength">
+            <span>{{ ('Category.Msg.MinLength' | translate) | stringFormat:label:errors.minlength.requiredLength}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.maxlength">
+            <span>{{ ('Category.Msg.MaxLength' | translate) | stringFormat:label:errors.maxlength.requiredLength}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.min">
+            <span>{{ ('Category.Msg.Min' | translate) | stringFormat:label:errors.min.max}}</span>
+        </mat-error>
+
+        <mat-error *ngIf="errors.max">
+            <span>{{ ('Category.Msg.Max' | translate) | stringFormat:label:errors.max.max}}</span>
+        </mat-error>
+
+        <mat-hint *ngFor="let error of extendErrors">
+            <span>{{ error.message }} </span>
+        </mat-hint>
+    </mat-form-field>
+</div>
+
+<div class="w-full" *ngIf="!group">
+    <mat-form-field class="w-full">
+        <mat-label>{{label | translate}}</mat-label>
+        <input *ngIf="!showFullDecimal" matInput [tabIndex]="tabIndex" [ngModel]="myModel" [ngClass]="'t-a-' + align"
+            [required]="required" (ngModelChange)="change($event)" readonly="{{readOnly}}"
+            mask="{{'separator.' + precision}}" thousandSeparator="," (blur)="onBlurInput()" (focus)="onFocusInput()" />
+
+        <input *ngIf="showFullDecimal" matInput [tabIndex]="tabIndex" [ngModel]="myModel" [ngClass]="'t-a-' + align"
+            [required]="required" (ngModelChange)="change($event)" readonly="{{readOnly}}"
+            currencyMask [options]="{ precision: precision, prefix: '', inputMode: inputMode }" (blur)="onBlurInput()" (focus)="onFocusInput()" />
+
+        <mat-hint *ngFor="let error of extendErrors">
+            <span>{{ error.message }} </span>
+        </mat-hint>
+    </mat-form-field>
+</div> -->
+
+<div class="w-full" *ngIf="group" [formGroup]="group" fxLayout="row" fxLayoutAlign="start center">
+  <mat-form-field class="form-control w-full">
+    <mat-label>{{ label | translate }}</mat-label>
+    <input
+      *ngIf="!showFullDecimal"
+      matInput
+      [tabIndex]="tabIndex"
+      name="{{ name }}"
+      formControlName="{{ controlName }}"
+      [required]="required"
+      readonly="{{ readOnly }}"
+      [ngClass]="'t-a-' + align"
+      (ngModelChange)="change($event)"
+      [ngModel]="myModel"
+      (blur)="onBlurInput()"
+      (focus)="onFocusInput()"
+      mask="{{ 'separator.' + precision }}"
+      thousandSeparator=","
+    />
+
+    <input
+      *ngIf="showFullDecimal"
+      matInput
+      [tabIndex]="tabIndex"
+      name="{{ name }}"
+      formControlName="{{ controlName }}"
+      [required]="required"
+      readonly="{{ readOnly }}"
+      [ngClass]="'t-a-' + align"
+      (ngModelChange)="change($event)"
+      [ngModel]="myModel"
+      (blur)="onBlurInput()"
+      (focus)="onFocusInput()"
+      currencyMask
+      [options]="{ precision: precision, prefix: '', inputMode: inputMode }"
+    />
+
+    <mat-error *ngIf="errors.required">
+      <span>{{ 'Category.Msg.Required' | translate | stringFormat : label }}</span>
+    </mat-error>
+
+    <mat-error *ngIf="errors.minlength">
+      <span>{{ 'Category.Msg.MinLength' | translate | stringFormat : label : errors.minlength.requiredLength }}</span>
+    </mat-error>
+
+    <mat-error *ngIf="errors.maxlength">
+      <span>{{ 'Category.Msg.MaxLength' | translate | stringFormat : label : errors.maxlength.requiredLength }}</span>
+    </mat-error>
+
+    <mat-error *ngIf="errors.min">
+      <span>{{ 'Category.Msg.Min' | translate | stringFormat : label : errors.min.max }}</span>
+    </mat-error>
+
+    <mat-error *ngIf="errors.max">
+      <span>{{ 'Category.Msg.Max' | translate | stringFormat : label : errors.max.max }}</span>
+    </mat-error>
+
+    <mat-hint *ngFor="let error of extendErrors">
+      <span>{{ error.message }} </span>
+    </mat-hint>
+  </mat-form-field>
+</div>
+
+<div class="w-full" *ngIf="!group" fxLayout="row" fxLayoutAlign="start center">
+  <mat-form-field class="form-control w-full">
+    <mat-label>{{ label | translate }}</mat-label>
+    <input
+      *ngIf="!showFullDecimal"
+      matInput
+      [tabIndex]="tabIndex"
+      [ngModel]="myModel"
+      [ngClass]="'t-a-' + align"
+      [required]="required"
+      (ngModelChange)="change($event)"
+      readonly="{{ readOnly }}"
+      mask="{{ 'separator.' + precision }}"
+      thousandSeparator=","
+      (blur)="onBlurInput()"
+      (focus)="onFocusInput()"
+    />
+
+    <input
+      *ngIf="showFullDecimal"
+      matInput
+      [tabIndex]="tabIndex"
+      [ngModel]="myModel"
+      [ngClass]="'t-a-' + align"
+      [required]="required"
+      (ngModelChange)="change($event)"
+      readonly="{{ readOnly }}"
+      currencyMask
+      [options]="{ precision: precision, prefix: '', inputMode: inputMode }"
+      (blur)="onBlurInput()"
+      (focus)="onFocusInput()"
+    />
+
+    <mat-hint *ngFor="let error of extendErrors">
+      <span>{{ error.message }} </span>
+    </mat-hint>
+  </mat-form-field>
+</div>

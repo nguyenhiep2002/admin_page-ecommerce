@@ -1,0 +1,78 @@
+<div class="w-full" *ngIf="group && !readOnly" [formGroup]="group" fxLayout="row" fxLayoutAlign="start center">
+    <mat-form-field class="form-control readonly-wrapper" appearance="outline">
+        <mat-label>{{label | translate}}</mat-label>
+        <div cdk-overlay-origin class="mat-select-trigger" (click)="openPanel(trigger)">
+            <input matInput type="text" class="hidden-input"
+                [required]="required" [tabIndex]="tabIndex" value="{{ngModel}}" formControlName="{{controlName}}"
+                #trigger="matAutocompleteTrigger" [matAutocomplete]="auto" />
+            <div class="mat-select-value">
+                <span class="mat-select-value-text ng-star-inserted">
+                    {{displayText}}
+                </span>
+            </div>
+            <div class="mat-select-arrow-wrapper">
+                <div class="mat-select-arrow"></div>
+            </div>            
+        </div>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" panelWidth="300px" (closed)="closePanel()">
+            <mat-option class="empty-option" disabled></mat-option>
+            <ara-check-tree *ngIf="multiple" fxFlex [idField]="'id'" [textField]="'name'" [controller]="controller" fusePerfectScrollbar></ara-check-tree>
+            <ara-tree *ngIf="!multiple" fxFlex [idField]="'id'" [textField]="'name'" [controller]="controller" fusePerfectScrollbar>
+            </ara-tree>
+        </mat-autocomplete>
+        <button stop-propagation *ngIf="ngModel && !readOnly" class="btn-close" matSuffix mat-button mat-icon-button
+            (click)="clear()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-error>
+            <span>{{ ('Category.Msg.Required' | translate) | stringFormat:label}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>
+
+<div class="w-full" *ngIf="!group && !readOnly" fxLayout="row" fxLayoutAlign="start center">
+    <span class="pr-12 label" fxLayoutAlign="end center">{{label | translate}}</span>
+    <mat-form-field class="form-control" appearance="outline">
+        <div cdk-overlay-origin class="mat-select-trigger" (click)="openPanel(trigger1)">
+            <input matInput type="text" class="hidden-input"
+                [required]="required" [tabIndex]="tabIndex" [(ngModel)]="ngModel" 
+                #trigger1="matAutocompleteTrigger" [matAutocomplete]="auto1" />
+            <div class="mat-select-value">
+                <span class="mat-select-value-text ng-star-inserted">
+                    {{displayText}}
+                </span>
+            </div>
+            <div class="mat-select-arrow-wrapper">
+                <div class="mat-select-arrow"></div>
+            </div>
+        </div>
+        <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete" (closed)="closePanel()">
+            <mat-option class="empty-option" disabled></mat-option>
+            <ara-check-tree *ngIf="multiple" fxFlex [idField]="'id'" [textField]="'name'" [controller]="controller" fusePerfectScrollbar></ara-check-tree>
+            <ara-tree *ngIf="!multiple" fxFlex [idField]="'id'" [textField]="'name'" [controller]="controller" fusePerfectScrollbar>
+            </ara-tree>
+        </mat-autocomplete>
+        <button stop-propagation *ngIf="!hideClearButton && ngModel && !readOnly" class="btn-close" matSuffix mat-button
+            mat-icon-button (click)="clear()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
+
+<div class="w-full" *ngIf="readOnly" fxLayout="row" fxLayoutAlign="start center">
+    <span class="pr-12 label" fxLayoutAlign="end center">{{label | translate}}</span>
+    <mat-form-field class="form-control" appearance="outline">
+        <div cdk-overlay-origin class="mat-select-trigger">
+            <input matInput type="text" class="hidden-input"
+                [required]="required" [tabIndex]="tabIndex" [(ngModel)]="ngModel" />
+            <div class="mat-select-value">
+                <span class="mat-select-value-text ng-star-inserted">
+                    {{displayText}}
+                </span>
+            </div>
+            <div class="mat-select-arrow-wrapper">
+                <div class="mat-select-arrow"></div>
+            </div>
+        </div>
+    </mat-form-field>
+</div>

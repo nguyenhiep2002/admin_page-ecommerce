@@ -1,0 +1,10 @@
+:host {
+    .dialog-content-wrapper .mat-dialog-title {
+        height: 50px !important;
+    }
+
+    .mat-dialog-content {
+        max-height: 90vh;
+        white-space: pre-wrap;
+    }
+}

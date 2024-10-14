@@ -1,0 +1,10 @@
+
+:host {  
+    .mat-icon {
+        cursor: pointer;
+    }
+
+    ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+        display: inline-flex;
+    }
+}
